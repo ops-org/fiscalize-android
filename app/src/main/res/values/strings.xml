@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">fiscalize-android</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_detalhes_nota_fiscal">DetalhesNotaFiscalActivity</string>
+
+    <!-- Nota Fiscal   -->
+    <string name="exception_detalhes_nota_fiscal">Não foi possível carregar a nota fiscal!</string>
+
+    <!-- Login -->
+    <string name="login_cadastro">Cadastre-se</string>
+    <string name="login_usuario">Usuário</string>
+    <string name="login_senha">Senha</string>
+
+    <string name="exception_login">Não foi possível logar!</string>
+    <string name="exception_login_facebook">Não foi possível logar com o Facebook!</string>
+    <string name="exception_token_id">Impossível recuperar a sessão de login!</string>
+    <string name="exception_salvar_token_id">Impossível salvar a sessão de login!</string>
+    <string name="exception_deletar_token_id">Impossível deletar a sessão de login!</string>
+    <string name="exception_validar_token_id">Não foi possível validar Token!</string>
+
+    <string name="warning_preenchimento_login">Favor preencher login e senha!</string>
+
+    <!-- Exceptions Geral -->
+    <string name="exception_rest">Erro ao contatar servidor!</string>
+</resources>
