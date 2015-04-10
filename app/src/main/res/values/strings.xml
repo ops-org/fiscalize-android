@@ -24,4 +24,28 @@
 
     <!-- Exceptions Geral -->
     <string name="exception_rest">Erro ao contatar servidor!</string>
+    <string name="exception_comunicacao">Falha na comunicação!</string>
+
+     <!-- Facebook -->
+    <!--TODO: IMPLEMENTAR APP FACEBOOK ?
+    <string name="app_id"></string>
+    <string name="login_facebook">Entrar com Facebook</string>
+    <string name="login_button">Entrar</string>
+    -->
+
+      <!-- Cadastro -->
+    <string name="cadastro_cadastro">Cadastre-se</string>
+    <string name="cadastro_usuario">Usuário</string>
+    <string name="cadastro_senha">Senha</string>
+    <string name="cadastro_nome">Nome</string>
+    <string name="cadastro_apelido">Apelido</string>
+    <string name="cadastro_cadastrar">Cadastrar</string>
+
+    <string name="exception_cadastro">Não foi possível cadastrar o usuário!</string>
+
+    <string name="warning_preenchimento_usuario">Favor preencher o campo usuário!</string>
+    <string name="warning_preenchimento_senha">Favor preencher o campo senha!</string>
+    <string name="warning_preenchimento_nome">Favor preencher o campo nome!</string>
+    <string name="warning_preenchimento_apelido">Favor preencher o campo apelido!</string>
+
 </resources>

@@ -15,13 +15,14 @@ import br.net.ops.fiscalize.vo.NotaFiscal;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DetalhesNotaFiscalVolley extends JsonObjectRequest {
+public class ExibirNotaFiscalVolley extends JsonObjectRequest {
 
     private static final String TAG = "NotaFiscalVolley";
 
     private static final int METHOD = Request.Method.GET;
 
     public static final String REST_DETALHES_NOTA_FISCAL = Utilidade.REST_SERVIDOR;
+    public static final String REST_DETALHES_NOTA_FISCAL_TOKEN_ID = "&tokenId=";
 
 
     public interface DetalhesNotaFiscalListener {
@@ -29,9 +30,9 @@ public class DetalhesNotaFiscalVolley extends JsonObjectRequest {
         public void onDetalhesNotaFiscalErro(String erro);
     }
 
-    public DetalhesNotaFiscalVolley(final DetalhesNotaFiscalListener listener, final Context context){
+    public ExibirNotaFiscalVolley(String tokenId, final DetalhesNotaFiscalListener listener, final Context context){
 
-        super(METHOD, REST_DETALHES_NOTA_FISCAL, null, new Listener<JSONObject>() {
+        super(METHOD, REST_DETALHES_NOTA_FISCAL + REST_DETALHES_NOTA_FISCAL_TOKEN_ID + tokenId, null, new Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 NotaFiscal notaFiscal = new NotaFiscal();
