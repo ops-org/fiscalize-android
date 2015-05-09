@@ -6,7 +6,7 @@
     <string name="title_activity_detalhes_nota_fiscal">DetalhesNotaFiscalActivity</string>
 
     <!-- Nota Fiscal   -->
-    <string name="exception_detalhes_nota_fiscal">Não foi possível carregar a nota fiscal!</string>
+    <string name="exception_detalhes_nota_fiscal">Nenhuma nota fiscal disponível! Tente mais tarde!</string>
 
     <!-- Login -->
     <string name="login_cadastro">Cadastre-se</string>

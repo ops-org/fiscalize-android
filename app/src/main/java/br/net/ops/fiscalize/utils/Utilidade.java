@@ -12,21 +12,33 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import br.net.ops.fiscalize.BuildConfig;
+
 public class Utilidade {
-
-    public static final boolean DEBUG = true;
-
-    // FACEBOOK
-    public static final String PACKAGE = "br.com.myflyers";
-    public static final String FACEBOOK_CRYPTOGRAPHY = "SHA";
 
     private static final String TAG = "Utilidade";
 
-    public static final String REST_SERVIDOR = "http://104.131.229.175/ops/";
+    // FACEBOOK
+    public static final String PACKAGE = "br.net.ops.fiscalize";
+    public static final String FACEBOOK_CRYPTOGRAPHY = "SHA";
+
+    // SERVIDOR
+    public static final String URL_SERVIDOR = "http://104.131.229.175";
+
+    // REST
+    public static final String REST_SERVIDOR = URL_SERVIDOR + ":8080/fiscalize-web/rest/";
+    public static final String REST_JSON_TOKEN_ID = "tokenId";
+    public static final String REST_JSON_ERRO = "erro";
+
+    // IMAGENS
+    public static final String IMG_PARLAMENTAR_URL = URL_SERVIDOR + "/fiscalize/parlamentar/";
+    public static final String IMG_PARLAMENTAR_EXT = ".jpg";
+    public static final String IMG_PARTIDO_URL = URL_SERVIDOR + "/fiscalize/partido/";
+    public static final String IMG_PARTIDO_EXT = ".gif";
 
     public static Date converterStringDate(String data) {
         try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             return simpleDateFormat.parse(data);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -48,7 +60,7 @@ public class Utilidade {
     }
 
     public static void showFacebookHashKey(Context context) {
-        if(DEBUG) {
+        if(BuildConfig.DEBUG) {
             try {
                 PackageInfo info = context.getPackageManager().getPackageInfo(Utilidade.PACKAGE, PackageManager.GET_SIGNATURES);
                 for (Signature signature : info.signatures) {

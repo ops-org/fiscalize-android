@@ -5,20 +5,22 @@ import com.android.volley.RequestQueue;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import br.net.ops.fiscalize.R;
 import br.net.ops.fiscalize.vo.NotaFiscal;
-import br.net.ops.fiscalize.volley.DetalhesNotaFiscalVolley;
-import br.net.ops.fiscalize.volley.DetalhesNotaFiscalVolley.DetalhesNotaFiscalListener;
+import br.net.ops.fiscalize.volley.NotaFiscalVolley;
+import br.net.ops.fiscalize.volley.NotaFiscalVolley.DetalhesNotaFiscalListener;
 import br.net.ops.fiscalize.volley.VolleySingleton;
 
-public class DetalhesNotaFiscalActivity extends ActionBarActivity implements DetalhesNotaFiscalListener {
+public class NotaFiscalActivity extends ActionBarActivity implements DetalhesNotaFiscalListener {
 
     private static final String TAG = "DetalhesNFActivity";
 
     private Context context;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +29,10 @@ public class DetalhesNotaFiscalActivity extends ActionBarActivity implements Det
         this.context = (Context) this;
 
         RequestQueue queue = VolleySingleton.getInstance(context).getRequestQueue();
-        DetalhesNotaFiscalVolley mensagemVolley = new DetalhesNotaFiscalVolley(this, context);
+        NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, context);
         queue.add(mensagemVolley);
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,11 +58,12 @@ public class DetalhesNotaFiscalActivity extends ActionBarActivity implements Det
 
     @Override
     public void onDetalhesNotaFiscalRecebido(NotaFiscal notaFiscal) {
-
+        Log.d(TAG, notaFiscal.getParlamentar().getUrlImagem() + "|" + notaFiscal.getParlamentar().getPartido().getUrlImagem());
     }
 
     @Override
     public void onDetalhesNotaFiscalErro(String erro) {
-
+        Log.e(TAG, erro);
+        Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
     }
 }

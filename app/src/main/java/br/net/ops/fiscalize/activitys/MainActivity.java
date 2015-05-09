@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
 
         //TODO:definir layout e funcionalidades
 
-        Intent irParaDetalhesNotaFiscal = new Intent(context,DetalhesNotaFiscalActivity.class);
+        Intent irParaDetalhesNotaFiscal = new Intent(context,NotaFiscalActivity.class);
         startActivity(irParaDetalhesNotaFiscal);
 
     }

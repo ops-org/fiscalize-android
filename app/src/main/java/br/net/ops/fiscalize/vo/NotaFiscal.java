@@ -1,120 +1,45 @@
 package br.net.ops.fiscalize.vo;
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class NotaFiscal {
 
-    private int notaFiscalId;
-    private String nomeParlamentar;
-    private String emailParlamentar;
-    private String urlFotoParlamentar;
-    private String nomePartido;
-    private String siglaPartido;
-    private String urlFotoPartido;
-    private String cota;
-    private String UF;
-    private Date dataEmissao;
+    private Integer notaFiscalId;
 
     private String descricao;
+    private String descricaoSubCota;
     private String fornecedor;
-    private int ano;
-    private int mes;
-    private int numeroDocumento;
-    private String valor;
-    private String valorGlosa;
-    private String valorLiquido;
-
-    public String getCpfCnpj() {
-        return cpfCnpj;
-    }
-
-    public void setCpfCnpj(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
-    }
-
     private String cpfCnpj;
+    private Integer ano;
+    private Integer mes;
 
+    private String numeroDocumento;
+    private Integer parcela;
+    private Integer tipoDocumentoFiscal;
 
+    private String nomePassageiro;
+    private String trechoViagem;
 
-    public int getNotaFiscalId() {
+    private Date dataEmissao;
+
+    private BigDecimal valor;
+    private BigDecimal valorGlosa;
+    private BigDecimal valorLiquido;
+
+    public Date dataInclusao;
+
+    private Parlamentar parlamentar;
+    private Cota cota;
+    private Uf uf;
+
+    public Integer getNotaFiscalId() {
         return notaFiscalId;
     }
 
-    public void setNotaFiscalId(int notaFiscalId) {
+    public void setNotaFiscalId(Integer notaFiscalId) {
         this.notaFiscalId = notaFiscalId;
-    }
-
-    public String getNomeParlamentar() {
-        return nomeParlamentar;
-    }
-
-    public void setNomeParlamentar(String nomeParlamentar) {
-        this.nomeParlamentar = nomeParlamentar;
-    }
-
-    public String getEmailParlamentar() {
-        return emailParlamentar;
-    }
-
-    public void setEmailParlamentar(String emailParlamentar) {
-        this.emailParlamentar = emailParlamentar;
-    }
-
-    public String getUrlFotoParlamentar() {
-        return urlFotoParlamentar;
-    }
-
-    public void setUrlFotoParlamentar(String urlFotoParlamentar) {
-        this.urlFotoParlamentar = urlFotoParlamentar;
-    }
-
-    public String getSiglaPartido() {
-        return siglaPartido;
-    }
-
-    public void setSiglaPartido(String siglaPartido) {
-        this.siglaPartido = siglaPartido;
-    }
-
-    public String getNomePartido() {
-        return nomePartido;
-    }
-
-    public void setNomePartido(String nomePartido) {
-        this.nomePartido = nomePartido;
-    }
-
-    public String getUrlFotoPartido() {
-        return urlFotoPartido;
-    }
-
-    public void setUrlFotoPartido(String urlFotoPartido) {
-        this.urlFotoPartido = urlFotoPartido;
-    }
-
-    public String getCota() {
-        return cota;
-    }
-
-    public void setCota(String cota) {
-        this.cota = cota;
-    }
-
-    public Date getDataEmissao() {
-        return dataEmissao;
-    }
-
-    public void setDataEmissao(Date dataEmissao) {
-        this.dataEmissao = dataEmissao;
-    }
-
-    public String getUF() {
-        return UF;
-    }
-
-    public void setUF(String UF) {
-        this.UF = UF;
     }
 
     public String getDescricao() {
@@ -125,6 +50,14 @@ public class NotaFiscal {
         this.descricao = descricao;
     }
 
+    public String getDescricaoSubCota() {
+        return descricaoSubCota;
+    }
+
+    public void setDescricaoSubCota(String descricaoSubCota) {
+        this.descricaoSubCota = descricaoSubCota;
+    }
+
     public String getFornecedor() {
         return fornecedor;
     }
@@ -133,54 +66,131 @@ public class NotaFiscal {
         this.fornecedor = fornecedor;
     }
 
-    public int getAno() {
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
+
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
+    }
+
+    public Integer getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
+    public void setAno(Integer ano) {
         this.ano = ano;
     }
 
-    public int getMes() {
+    public Integer getMes() {
         return mes;
     }
 
-    public void setMes(int mes) {
+    public void setMes(Integer mes) {
         this.mes = mes;
     }
 
-    public int getNumeroDocumento() {
+    public String getNumeroDocumento() {
         return numeroDocumento;
     }
 
-    public void setNumeroDocumento(int numeroDocumento) {
+    public void setNumeroDocumento(String numeroDocumento) {
         this.numeroDocumento = numeroDocumento;
     }
 
-    public String getValor() {
+    public Integer getParcela() {
+        return parcela;
+    }
+
+    public void setParcela(Integer parcela) {
+        this.parcela = parcela;
+    }
+
+    public Integer getTipoDocumentoFiscal() {
+        return tipoDocumentoFiscal;
+    }
+
+    public void setTipoDocumentoFiscal(Integer tipoDocumentoFiscal) {
+        this.tipoDocumentoFiscal = tipoDocumentoFiscal;
+    }
+
+    public String getNomePassageiro() {
+        return nomePassageiro;
+    }
+
+    public void setNomePassageiro(String nomePassageiro) {
+        this.nomePassageiro = nomePassageiro;
+    }
+
+    public String getTrechoViagem() {
+        return trechoViagem;
+    }
+
+    public void setTrechoViagem(String trechoViagem) {
+        this.trechoViagem = trechoViagem;
+    }
+
+    public Date getDataEmissao() {
+        return dataEmissao;
+    }
+
+    public void setDataEmissao(Date dataEmissao) {
+        this.dataEmissao = dataEmissao;
+    }
+
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
-    public String getValorGlosa() {
+    public BigDecimal getValorGlosa() {
         return valorGlosa;
     }
 
-    public void setValorGlosa(String valorGlosa) {
+    public void setValorGlosa(BigDecimal valorGlosa) {
         this.valorGlosa = valorGlosa;
     }
 
-    public String getValorLiquido() {
+    public BigDecimal getValorLiquido() {
         return valorLiquido;
     }
 
-    public void setValorLiquido(String valorLiquido) {
+    public void setValorLiquido(BigDecimal valorLiquido) {
         this.valorLiquido = valorLiquido;
     }
 
+    public Date getDataInclusao() {
+        return dataInclusao;
+    }
 
+    public void setDataInclusao(Date dataInclusao) {
+        this.dataInclusao = dataInclusao;
+    }
 
+    public Parlamentar getParlamentar() {
+        return parlamentar;
+    }
+
+    public void setParlamentar(Parlamentar parlamentar) {
+        this.parlamentar = parlamentar;
+    }
+
+    public Cota getCota() {
+        return cota;
+    }
+
+    public void setCota(Cota cota) {
+        this.cota = cota;
+    }
+
+    public Uf getUf() {
+        return uf;
+    }
+
+    public void setUf(Uf uf) {
+        this.uf = uf;
+    }
 }

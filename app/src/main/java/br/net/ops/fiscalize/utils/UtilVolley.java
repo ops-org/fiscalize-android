@@ -11,12 +11,14 @@ import com.android.volley.VolleyError;
 
 import android.util.Log;
 
+import br.net.ops.fiscalize.BuildConfig;
+
 public class UtilVolley {
 
 	private static final String TAG = "UtilVolley";
 
 	public static void logarErro(VolleyError error) {
-		if(Utilidade.DEBUG) {
+		if(BuildConfig.DEBUG) {
 			Log.w(TAG, "Erro Volley: " + error.getLocalizedMessage());
 			
 			// Retorno Cabeçalho HTTP
