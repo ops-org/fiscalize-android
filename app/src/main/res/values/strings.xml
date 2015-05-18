@@ -1,9 +1,5 @@
 <resources>
-    <string name="app_name">fiscalize-android</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_detalhes_nota_fiscal">DetalhesNotaFiscalActivity</string>
+    <string name="app_name">Fiscalize</string>
 
     <!-- Nota Fiscal   -->
     <string name="exception_detalhes_nota_fiscal">Nenhuma nota fiscal disponível! Tente mais tarde!</string>
@@ -13,39 +9,12 @@
     <string name="login_usuario">Usuário</string>
     <string name="login_senha">Senha</string>
 
-    <string name="exception_login">Não foi possível logar!</string>
-    <string name="exception_login_facebook">Não foi possível logar com o Facebook!</string>
-    <string name="exception_token_id">Impossível recuperar a sessão de login!</string>
-    <string name="exception_salvar_token_id">Impossível salvar a sessão de login!</string>
-    <string name="exception_deletar_token_id">Impossível deletar a sessão de login!</string>
-    <string name="exception_validar_token_id">Não foi possível validar Token!</string>
-
-    <string name="warning_preenchimento_login">Favor preencher login e senha!</string>
+    <string name="exception_resgatar_usuario">Usuário inválido!</string>
+    <string name="exception_salvar_usuario">Impossível salvar usuário!</string>
+    <string name="exception_deletar_usuario">Impossível deletar usuário!</string>
 
     <!-- Exceptions Geral -->
     <string name="exception_rest">Erro ao contatar servidor!</string>
     <string name="exception_comunicacao">Falha na comunicação!</string>
-
-     <!-- Facebook -->
-    <!--TODO: IMPLEMENTAR APP FACEBOOK ?
-    <string name="app_id"></string>
-    <string name="login_facebook">Entrar com Facebook</string>
-    <string name="login_button">Entrar</string>
-    -->
-
-      <!-- Cadastro -->
-    <string name="cadastro_cadastro">Cadastre-se</string>
-    <string name="cadastro_usuario">Usuário</string>
-    <string name="cadastro_senha">Senha</string>
-    <string name="cadastro_nome">Nome</string>
-    <string name="cadastro_apelido">Apelido</string>
-    <string name="cadastro_cadastrar">Cadastrar</string>
-
-    <string name="exception_cadastro">Não foi possível cadastrar o usuário!</string>
-
-    <string name="warning_preenchimento_usuario">Favor preencher o campo usuário!</string>
-    <string name="warning_preenchimento_senha">Favor preencher o campo senha!</string>
-    <string name="warning_preenchimento_nome">Favor preencher o campo nome!</string>
-    <string name="warning_preenchimento_apelido">Favor preencher o campo apelido!</string>
 
 </resources>

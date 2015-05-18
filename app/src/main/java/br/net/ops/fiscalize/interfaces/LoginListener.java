@@ -1,9 +1,10 @@
 package br.net.ops.fiscalize.interfaces;
 
+import br.net.ops.fiscalize.vo.Usuario;
+
 public interface LoginListener {
 
-	public void onLoginRealizado(String tokenId);
+    void onLoginRealizado(Usuario usuario);
+    void onLoginErro(String erro);
 
-    public void onLoginErro(String erro);
-	
 }

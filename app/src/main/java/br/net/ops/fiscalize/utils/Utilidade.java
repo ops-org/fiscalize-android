@@ -18,21 +18,23 @@ public class Utilidade {
 
     private static final String TAG = "Utilidade";
 
+    public static final boolean DEBUG = BuildConfig.DEBUG;
+
     // FACEBOOK
     public static final String PACKAGE = "br.net.ops.fiscalize";
-    public static final String FACEBOOK_CRYPTOGRAPHY = "SHA";
 
     // SERVIDOR
-    public static final String URL_SERVIDOR = "http://104.131.229.175";
+    // public static final String URL_SERVIDOR = "http://104.131.229.175"; // prod
+    public static final String URL_SERVIDOR = "http://192.168.0.222"; // dev
 
     // REST
     public static final String REST_SERVIDOR = URL_SERVIDOR + ":8080/fiscalize-web/rest/";
-    public static final String REST_JSON_TOKEN_ID = "tokenId";
     public static final String REST_JSON_ERRO = "erro";
 
     // IMAGENS
     public static final String IMG_PARLAMENTAR_URL = URL_SERVIDOR + "/fiscalize/parlamentar/";
     public static final String IMG_PARLAMENTAR_EXT = ".jpg";
+
     public static final String IMG_PARTIDO_URL = URL_SERVIDOR + "/fiscalize/partido/";
     public static final String IMG_PARTIDO_EXT = ".gif";
 
@@ -56,21 +58,6 @@ public class Utilidade {
             e.printStackTrace();
             Log.d(TAG, "Data inválida: " + data);
             return null;
-        }
-    }
-
-    public static void showFacebookHashKey(Context context) {
-        if(BuildConfig.DEBUG) {
-            try {
-                PackageInfo info = context.getPackageManager().getPackageInfo(Utilidade.PACKAGE, PackageManager.GET_SIGNATURES);
-                for (Signature signature : info.signatures) {
-                    MessageDigest md = MessageDigest.getInstance(FACEBOOK_CRYPTOGRAPHY);
-                    md.update(signature.toByteArray());
-                    Log.i(TAG, "KeyHash: " + Base64.encodeToString(md.digest(), Base64.DEFAULT));
-                }
-            } catch (Exception e) {
-                Log.w(TAG, "Impossível recuperar Hash do Facebook!");
-            }
         }
     }
 

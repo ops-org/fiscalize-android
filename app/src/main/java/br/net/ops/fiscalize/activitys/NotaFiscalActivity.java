@@ -2,6 +2,7 @@ package br.net.ops.fiscalize.activitys;
 
 import com.android.volley.RequestQueue;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -16,44 +17,18 @@ import br.net.ops.fiscalize.volley.NotaFiscalVolley;
 import br.net.ops.fiscalize.volley.NotaFiscalVolley.DetalhesNotaFiscalListener;
 import br.net.ops.fiscalize.volley.VolleySingleton;
 
-public class NotaFiscalActivity extends ActionBarActivity implements DetalhesNotaFiscalListener {
+public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalListener {
 
-    private static final String TAG = "DetalhesNFActivity";
-
-    private Context context;
+    private static final String TAG = "NotaFiscalActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_nota_fiscal);
-        this.context = (Context) this;
 
-        RequestQueue queue = VolleySingleton.getInstance(context).getRequestQueue();
-        NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, context);
+        RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
+        NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, this);
         queue.add(mensagemVolley);
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_detalhes_nota_fiscal, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -64,6 +39,7 @@ public class NotaFiscalActivity extends ActionBarActivity implements DetalhesNot
     @Override
     public void onDetalhesNotaFiscalErro(String erro) {
         Log.e(TAG, erro);
-        Toast.makeText(context, erro, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, erro, Toast.LENGTH_LONG).show();
     }
+
 }

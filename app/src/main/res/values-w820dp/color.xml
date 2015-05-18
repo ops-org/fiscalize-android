@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="branco" type="color">#F1F1F1</item>
+    <item name="ghostwhite" type="color">#FFFFFF</item>
+
+    <item name="cinza" type="color">#BBBBBB</item>
+    <item name="cinza_claro" type="color">#D1D1D1</item>
+    <item name="cinza_escuro" type="color">#444444</item>
+
+    <item name="preto" type="color">#20202F</item>
+
+</resources>
