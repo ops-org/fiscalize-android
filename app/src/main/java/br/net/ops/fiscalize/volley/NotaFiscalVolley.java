@@ -28,12 +28,12 @@ public class NotaFiscalVolley extends JsonObjectRequest {
 
     private static final int METHOD = Request.Method.GET;
 
-    public static final String REST_DETALHES_NOTA_FISCAL = Utilidade.REST_SERVIDOR + "notaFiscal";
+    public static final String REST_DETALHES_NOTA_FISCAL = Utilidade.REST_SERVIDOR + "notafiscal/recuperar";
 
 
     public interface DetalhesNotaFiscalListener {
-        public void onDetalhesNotaFiscalRecebido(NotaFiscal notaFiscal);
-        public void onDetalhesNotaFiscalErro(String erro);
+        void onDetalhesNotaFiscalRecebido(NotaFiscal notaFiscal);
+        void onDetalhesNotaFiscalErro(String erro);
     }
 
     public NotaFiscalVolley(final DetalhesNotaFiscalListener listener, final Context context){

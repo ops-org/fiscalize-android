@@ -49,6 +49,7 @@ public class LoginActivity extends Activity implements LoginListener {
             preferences.salvarUsuario(usuario);
             Intent irNotaFiscal = new Intent(this, NotaFiscalActivity.class);
             startActivity(irNotaFiscal);
+            finish();
         } catch (SalvarUsuarioException e) {
             onLoginErro(e.getLocalizedMessage());
         }

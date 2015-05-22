@@ -24,8 +24,8 @@ public class Utilidade {
     public static final String PACKAGE = "br.net.ops.fiscalize";
 
     // SERVIDOR
-    // public static final String URL_SERVIDOR = "http://104.131.229.175"; // prod
-    public static final String URL_SERVIDOR = "http://192.168.0.222"; // dev
+    public static final String URL_SERVIDOR = "http://104.131.229.175"; // prod
+    //public static final String URL_SERVIDOR = "http://192.168.0.222"; // dev
 
     // REST
     public static final String REST_SERVIDOR = URL_SERVIDOR + ":8080/fiscalize-web/rest/";

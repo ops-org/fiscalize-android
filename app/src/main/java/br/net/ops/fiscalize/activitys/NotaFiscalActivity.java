@@ -9,9 +9,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import br.net.ops.fiscalize.R;
+import br.net.ops.fiscalize.helper.NotaFiscalLayoutHelper;
 import br.net.ops.fiscalize.vo.NotaFiscal;
 import br.net.ops.fiscalize.volley.NotaFiscalVolley;
 import br.net.ops.fiscalize.volley.NotaFiscalVolley.DetalhesNotaFiscalListener;
@@ -21,19 +23,25 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
 
     private static final String TAG = "NotaFiscalActivity";
 
+    private ViewGroup viewGroup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_nota_fiscal);
 
+        this.viewGroup = (ViewGroup) findViewById(R.id.view_group);
+
         RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
         NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, this);
         queue.add(mensagemVolley);
+
     }
 
     @Override
     public void onDetalhesNotaFiscalRecebido(NotaFiscal notaFiscal) {
-        Log.d(TAG, notaFiscal.getParlamentar().getUrlImagem() + "|" + notaFiscal.getParlamentar().getPartido().getUrlImagem());
+        // Log.d(TAG, notaFiscal.getParlamentar().getUrlImagem() + "|" + notaFiscal.getParlamentar().getPartido().getUrlImagem());
+        NotaFiscalLayoutHelper.getInstance().exibirNotaFiscal(this, viewGroup, notaFiscal);
     }
 
     @Override

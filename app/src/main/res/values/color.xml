@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="branco" type="color">#F1F1F1</color>
+    <color name="ghostwhite" type="color">#FFFFFF</color>
+
+    <color name="cinza" type="color">#BBBBBB</color>
+    <color name="cinza_claro" type="color">#D1D1D1</color>
+    <color name="cinza_escuro" type="color">#444444</color>
+
+    <color name="preto" type="color">#20202F</color>
+
+</resources>

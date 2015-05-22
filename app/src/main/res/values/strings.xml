@@ -1,8 +1,22 @@
 <resources>
+
     <string name="app_name">Fiscalize</string>
 
     <!-- Nota Fiscal   -->
     <string name="exception_detalhes_nota_fiscal">Nenhuma nota fiscal disponível! Tente mais tarde!</string>
+
+    <string name="label_cota">Cota:</string>
+    <string name="label_descricao">Descrição:</string>
+    <string name="label_uf">UF:</string>
+    <string name="label_data_emissao">Data Emissão:</string>
+    <string name="label_fornecedor">Fornecedor:</string>
+    <string name="label_cpf_cnpj">CPF/CPNJ:</string>
+    <string name="label_numero_documento">Nº Documento:</string>
+    <string name="label_ano">Ano:</string>
+    <string name="label_mes">Mês:</string>
+    <string name="label_valor">Valor:</string>
+    <string name="label_valor_glosa">Valor Glosa:</string>
+    <string name="label_valor_liquido">Valor Líquido:</string>
 
     <!-- Login -->
     <string name="login_cadastro">Cadastre-se</string>
