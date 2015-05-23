@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activitys.NotaFiscalActivity" >
+            android:name=".activitys.NotaFiscalActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

@@ -5,15 +5,23 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="TextLabel" parent="TextAppearance.AppCompat">
+    <style name="TextLabel" parent="AppTheme">
         <item name="android:textColor">@color/preto</item>
         <item name="android:textSize">@dimen/text_small</item>
     </style>
 
-    <style name="Text" parent="TextAppearance.AppCompat">
+    <style name="Text" parent="AppTheme">
         <item name="android:textColor">@color/preto</item>
-        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textSize">@dimen/text_smallest</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+
+    <style name="Button" parent="AppTheme">
+        <item name="android:textColor">@color/branco</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:gravity">center|center_horizontal</item>
+        <item name="android:layout_margin">@dimen/margin_smallest</item>
     </style>
 
 </resources>

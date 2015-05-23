@@ -18,6 +18,13 @@
     <string name="label_valor_glosa">Valor Glosa:</string>
     <string name="label_valor_liquido">Valor Líquido:</string>
 
+    <string name="label_suspeita">Nota Suspeita</string>
+    <string name="label_limpa">Nota Limpa</string>
+    <string name="label_nao_sei">Não sei! Quero analisar outra nota.</string>
+
+    <string name="mensagem_nota_suspeita">Esta nota é suspeita!</string>
+    <string name="mensagem_nota_limpa">Esta nota é limpa!</string>
+
     <!-- Login -->
     <string name="login_cadastro">Cadastre-se</string>
     <string name="login_usuario">Usuário</string>

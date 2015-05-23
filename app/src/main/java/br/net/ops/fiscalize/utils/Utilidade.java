@@ -29,6 +29,7 @@ public class Utilidade {
 
     // REST
     public static final String REST_SERVIDOR = URL_SERVIDOR + ":8080/fiscalize-web/rest/";
+    public static final String REST_JSON_MENSAGEM = "mensagem";
     public static final String REST_JSON_ERRO = "erro";
 
     // IMAGENS

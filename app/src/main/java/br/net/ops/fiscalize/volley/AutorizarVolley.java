@@ -28,7 +28,7 @@ public class AutorizarVolley {
 	private static final int METHOD = Request.Method.POST;
     private static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
 	
-	private static final String REST_LOGIN = Utilidade.REST_SERVIDOR + "usuario/autorizar";
+	private static final String URL = Utilidade.REST_SERVIDOR + "usuario/autorizar";
 	private static final String PARAM_USUARIO_ID = "usuarioId";
 	private static final String PARAM_TOKEN_ID = "tokenId";
 
@@ -42,7 +42,7 @@ public class AutorizarVolley {
 
     public AutorizarVolley(final Usuario usuario, final LoginListener loginListener, final Context context) {
 
-        this.request = new StringRequest(METHOD, REST_LOGIN, listenerSucesso, listenerErro) {
+        this.request = new StringRequest(METHOD, URL, listenerSucesso, listenerErro) {
             @Override
             protected Map<String,String> getParams(){
                 int usuarioId = 0;

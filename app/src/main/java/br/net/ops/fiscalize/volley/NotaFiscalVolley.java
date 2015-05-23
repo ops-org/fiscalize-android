@@ -28,7 +28,7 @@ public class NotaFiscalVolley extends JsonObjectRequest {
 
     private static final int METHOD = Request.Method.GET;
 
-    public static final String REST_DETALHES_NOTA_FISCAL = Utilidade.REST_SERVIDOR + "notafiscal/recuperar";
+    public static final String URL = Utilidade.REST_SERVIDOR + "notafiscal/recuperar";
 
 
     public interface DetalhesNotaFiscalListener {
@@ -38,7 +38,7 @@ public class NotaFiscalVolley extends JsonObjectRequest {
 
     public NotaFiscalVolley(final DetalhesNotaFiscalListener listener, final Context context){
 
-        super(METHOD, REST_DETALHES_NOTA_FISCAL, null, new Listener<JSONObject>() {
+        super(METHOD, URL, null, new Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonNotaFiscal) {
 
