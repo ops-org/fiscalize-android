@@ -10,7 +10,7 @@ public class NotaFiscal {
 
     private String descricao;
     private String descricaoSubCota;
-    private String fornecedor;
+    private String beneficiario;
     private String cpfCnpj;
     private Integer ano;
     private Integer mes;
@@ -58,12 +58,12 @@ public class NotaFiscal {
         this.descricaoSubCota = descricaoSubCota;
     }
 
-    public String getFornecedor() {
-        return fornecedor;
+    public String getBeneficiario() {
+        return beneficiario;
     }
 
-    public void setFornecedor(String fornecedor) {
-        this.fornecedor = fornecedor;
+    public void setBeneficiario(String beneficiario) {
+        this.beneficiario = beneficiario;
     }
 
     public String getCpfCnpj() {

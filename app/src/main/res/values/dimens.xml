@@ -10,7 +10,8 @@
     <dimen name="divider_height">1dp</dimen>
 
     <!-- Margin -->
-    <dimen name="margin_biggest">32dp</dimen>
+    <dimen name="margin_biggest">64dp</dimen>
+    <dimen name="margin_bigger">32dp</dimen>
     <dimen name="margin_big">24dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
@@ -18,7 +19,8 @@
     <dimen name="margin_border">1dp</dimen>
 
     <!-- Padding -->
-    <dimen name="padding_biggest">32dp</dimen>
+    <dimen name="padding_biggest">64dp</dimen>
+    <dimen name="padding_bigger">32dp</dimen>
     <dimen name="padding_big">24dp</dimen>
     <dimen name="padding_medium">16dp</dimen>
     <dimen name="padding_small">8dp</dimen>

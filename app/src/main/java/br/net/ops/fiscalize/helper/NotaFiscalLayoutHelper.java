@@ -13,6 +13,7 @@ import com.android.volley.toolbox.ImageLoader;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import br.net.ops.fiscalize.R;
@@ -55,7 +56,7 @@ public class NotaFiscalLayoutHelper {
         viewHolder.uf.setText(notaFiscal.getUf().getSigla());
         viewHolder.descricao.setText(notaFiscal.getDescricao());
         viewHolder.dataEmissao.setText(formatarDataEmissao(notaFiscal.getDataEmissao()));
-        viewHolder.fornecedor.setText(notaFiscal.getFornecedor());
+        viewHolder.fornecedor.setText(notaFiscal.getBeneficiario());
         viewHolder.cpfCnpj.setText(notaFiscal.getCpfCnpj());
         viewHolder.numeroDocumento.setText(notaFiscal.getNumeroDocumento());
         viewHolder.reembolso.setText(formatarReembolso(notaFiscal.getMes(), notaFiscal.getAno()));
@@ -119,8 +120,18 @@ public class NotaFiscalLayoutHelper {
     private String formatarDataEmissao(Date data) {
         String retorno = "";
         if(data!=null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            retorno = sdf.format(data);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(data);
+            int mes = calendar.get(Calendar.MONTH);
+
+            SimpleDateFormat sdfDia = new SimpleDateFormat("dd");
+            SimpleDateFormat sdfAno = new SimpleDateFormat("yyyy");
+
+            String strDia = sdfDia.format(data);
+            String strMes = Mes.getDescricaoCurta(mes+1); // JANUARY = 0
+            String strAno = sdfAno.format(data);
+
+            retorno = strDia + "/" + strMes + "/" + strAno;
         }
         return retorno;
     }
@@ -197,7 +208,7 @@ public class NotaFiscalLayoutHelper {
             uf = (TextView) viewGroup.findViewById(R.id.text_uf);
             descricao = (TextView) viewGroup.findViewById(R.id.text_descricao);
             dataEmissao = (TextView) viewGroup.findViewById(R.id.text_data_emissao);
-            fornecedor = (TextView) viewGroup.findViewById(R.id.text_fornecedor);
+            fornecedor = (TextView) viewGroup.findViewById(R.id.text_beneficiario);
             cpfCnpj = (TextView) viewGroup.findViewById(R.id.text_cpf_cnpj);
             numeroDocumento = (TextView) viewGroup.findViewById(R.id.text_numero_documento);
             reembolso = (TextView) viewGroup.findViewById(R.id.text_reembolso);

@@ -25,18 +25,23 @@ import br.net.ops.fiscalize.volley.VolleySingleton;
 public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalListener, SuspeitaVolley.SuspeitaListener {
 
     private static final String TAG = "NotaFiscalActivity";
+    private static final int MAX_TENTATIVAS = 3;
 
-    private ViewGroup viewGroup;
+    private ViewGroup viewGroupNotaFiscal;
     private ViewGroup viewGroupProgress;
+    private ViewGroup viewGroupRecarregar;
 
     private Button buttonSuspeita;
     private Button buttonLimpa;
     private Button buttonNaoSei;
+    private Button buttonRecarregar;
 
     private Preferences preferences;
 
     private Usuario usuario;
     private Suspeita suspeita;
+
+    private int numeroTentativas = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +49,21 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         setContentView(R.layout.activity_detalhes_nota_fiscal);
 
         try {
-            this.viewGroup = (ViewGroup) findViewById(R.id.view_group);
+            this.viewGroupNotaFiscal = (ViewGroup) findViewById(R.id.view_group);
             this.viewGroupProgress = (ViewGroup) findViewById(R.id.view_group_progress);
+            this.viewGroupRecarregar = (ViewGroup) findViewById(R.id.view_group_recarregar);
 
             this.buttonSuspeita = (Button) findViewById(R.id.button_suspeita);
             this.buttonLimpa = (Button) findViewById(R.id.button_limpa);
             this.buttonNaoSei = (Button) findViewById(R.id.button_nao_sei);
+            this.buttonRecarregar = (Button) findViewById(R.id.button_recarregar);
+            this.buttonRecarregar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    numeroTentativas=0;
+                    carregarNotaFiscal();
+                }
+            });
 
             this.preferences = new Preferences(this);
             this.usuario = preferences.resgatarUsuario();
@@ -72,41 +86,27 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
 
     @Override
     public void onDetalhesNotaFiscalRecebido(NotaFiscal notaFiscal) {
-        // Log.d(TAG, notaFiscal.getParlamentar().getUrlImagem() + "|" + notaFiscal.getParlamentar().getPartido().getUrlImagem());
-        NotaFiscalLayoutHelper.getInstance().exibirNotaFiscal(this, viewGroup, notaFiscal);
-
-        buttonSuspeita.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adicionarNotaSuspeita();
-            }
-        });
-
-        buttonLimpa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adicionarNotaLimpa();
-            }
-        });
-
-        buttonNaoSei.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                carregarNotaFiscal();
-            }
-        });
+        numeroTentativas=0;
 
         suspeita = new Suspeita();
         suspeita.setUsuario(usuario);
         suspeita.setNotaFiscal(notaFiscal);
 
-        exibirDados();
+        NotaFiscalLayoutHelper.getInstance().exibirNotaFiscal(this, viewGroupNotaFiscal, notaFiscal);
+
+        exibirModoNotaFiscal();
     }
 
     @Override
     public void onDetalhesNotaFiscalErro(String erro) {
         Log.e(TAG, erro);
-        Toast.makeText(this, erro, Toast.LENGTH_LONG).show();
+        numeroTentativas++;
+        if(numeroTentativas<=MAX_TENTATIVAS) {
+            carregarNotaFiscal();
+        } else {
+            Toast.makeText(this, getString(R.string.erro_carregar_nota_fiscal), Toast.LENGTH_LONG).show();
+            exibirModoRecarregar();
+        }
     }
 
     @Override
@@ -117,18 +117,19 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     @Override
     public void onSuspeitaErro(String erro) {
         Log.e(TAG, erro);
-        Toast.makeText(this, erro, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.erro_adicionar_suspeita), Toast.LENGTH_LONG).show();
+        exibirModoNotaFiscal();
     }
 
-    private void adicionarNotaSuspeita() {
-        adicionarNota(false);
+    private void adicionarSuspeitaNotaSuspeita() {
+        adicionarSuspeita(false);
     }
 
-    private void adicionarNotaLimpa() {
-        adicionarNota(true);
+    private void adicionarSuspeitaNotaLimpa() {
+        adicionarSuspeita(true);
     }
 
-    private void adicionarNota(boolean isSuspeita) {
+    private void adicionarSuspeita(boolean isSuspeita) {
         exibirModoCarregando();
 
         suspeita.setSuspeita(isSuspeita);
@@ -137,25 +138,52 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         queue.add(suspeitaVolley.getRequest());
     }
 
-    private void exibirModoCarregando() {
-        this.buttonSuspeita.setOnClickListener(clickAguarde);
-        this.buttonLimpa.setOnClickListener(clickAguarde);
-        this.buttonNaoSei.setOnClickListener(clickAguarde);
-
-        viewGroupProgress.setVisibility(View.VISIBLE);
-        viewGroup.setVisibility(View.GONE);
-    }
-
-    private void exibirDados() {
-        viewGroupProgress.setVisibility(View.GONE);
-        viewGroup.setVisibility(View.VISIBLE);
-    }
-
     private View.OnClickListener clickAguarde = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Toast.makeText(NotaFiscalActivity.this, getString(R.string.mensagem_aguarde), Toast.LENGTH_SHORT).show();
         }
     };
+
+    private void exibirModoCarregando() {
+        this.buttonSuspeita.setOnClickListener(clickAguarde);
+        this.buttonLimpa.setOnClickListener(clickAguarde);
+        this.buttonNaoSei.setOnClickListener(clickAguarde);
+
+        viewGroupNotaFiscal.setVisibility(View.GONE);
+        viewGroupProgress.setVisibility(View.VISIBLE);
+        viewGroupRecarregar.setVisibility(View.GONE);
+    }
+
+    private void exibirModoNotaFiscal() {
+        buttonSuspeita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adicionarSuspeitaNotaSuspeita();
+            }
+        });
+        buttonLimpa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adicionarSuspeitaNotaLimpa();
+            }
+        });
+        buttonNaoSei.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                carregarNotaFiscal();
+            }
+        });
+
+        viewGroupNotaFiscal.setVisibility(View.VISIBLE);
+        viewGroupProgress.setVisibility(View.GONE);
+        viewGroupRecarregar.setVisibility(View.GONE);
+    }
+
+    private void exibirModoRecarregar() {
+        viewGroupNotaFiscal.setVisibility(View.GONE);
+        viewGroupProgress.setVisibility(View.GONE);
+        viewGroupRecarregar.setVisibility(View.VISIBLE);
+    }
 
 }
