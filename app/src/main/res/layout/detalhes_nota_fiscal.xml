@@ -192,26 +192,34 @@
 
             </HorizontalScrollView>
 
-            <LinearLayout
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/margin_small">
+                android:fadingEdge="none"
+                android:scrollbars="none">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_beneficiario"
-                    style="@style/TextLabel" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/margin_small">
 
-                <TextView
-                    android:id="@+id/text_beneficiario"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    style="@style/Text" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_beneficiario"
+                        style="@style/TextLabel" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/text_beneficiario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        style="@style/Text" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"

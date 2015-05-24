@@ -17,15 +17,25 @@
     <string name="label_valor_glosa">Valor Glosa:</string>
     <string name="label_valor_liquido">Valor Líquido:</string>
 
+    <!-- BOTOES -->
     <string name="label_suspeita">Suspeita</string>
     <string name="label_limpa">Limpa</string>
     <string name="label_nao_sei">Não sei! Quero analisar outra nota.</string>
     <string name="label_recarregar">Recarregar</string>
+    <string name="label_sim">Sim</string>
+    <string name="label_nao">Não</string>
 
+    <!-- PERGUNTAS -->
+    <string name="label_suspeita_valor">O VALOR é suspeito?</string>
+    <string name="label_suspeita_objeto">O OBJETO COMPRADO é suspeito?</string>
+    <string name="label_suspeita_beneficiario">O BENEFICIÁRIO é suspeito?</string>
+
+    <!-- MENSAGENS -->
     <string name="mensagem_nota_suspeita">Esta nota é suspeita!</string>
     <string name="mensagem_nota_limpa">Esta nota é limpa!</string>
     <string name="mensagem_aguarde">Aguarde!</string>
 
+    <!-- ERROS -->
     <string name="erro_carregar_nota_fiscal">Impossível carregar! Tente mais tarde!</string>
     <string name="erro_adicionar_suspeita">Impossível adicionar! Tente novamente!</string>
 

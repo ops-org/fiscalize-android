@@ -6,7 +6,7 @@ public class Suspeita {
     private Boolean suspeita;
     private Boolean suspeitaValor;
     private Boolean suspeitaObjeto;
-    private Boolean suspeitaFornecedor;
+    private Boolean suspeitaBeneficiario;
     private String comentarios;
 
     private Usuario usuario;
@@ -36,12 +36,12 @@ public class Suspeita {
         this.suspeitaObjeto = suspeitaObjeto;
     }
 
-    public Boolean getSuspeitaFornecedor() {
-        return suspeitaFornecedor;
+    public Boolean getSuspeitaBeneficiario() {
+        return suspeitaBeneficiario;
     }
 
-    public void setSuspeitaFornecedor(Boolean suspeitaFornecedor) {
-        this.suspeitaFornecedor = suspeitaFornecedor;
+    public void setSuspeitaBeneficiario(Boolean suspeitaBeneficiario) {
+        this.suspeitaBeneficiario = suspeitaBeneficiario;
     }
 
     public String getComentarios() {

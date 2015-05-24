@@ -84,7 +84,7 @@ public class NotaFiscalVolley extends JsonObjectRequest {
                     notaFiscal.setNotaFiscalId(jsonNotaFiscal.getInt("notaFiscalId"));
                     notaFiscal.setDescricao(jsonNotaFiscal.optString("descricao"));
                     notaFiscal.setDescricaoSubCota(jsonNotaFiscal.optString("descricaoSubCota"));
-                    notaFiscal.setBeneficiario(jsonNotaFiscal.optString("fornecedor"));
+                    notaFiscal.setBeneficiario(jsonNotaFiscal.optString("beneficiario"));
                     notaFiscal.setCpfCnpj(jsonNotaFiscal.optString("cpfCnpj"));
                     notaFiscal.setAno(jsonNotaFiscal.getInt("ano"));
                     notaFiscal.setMes(jsonNotaFiscal.getInt("mes"));

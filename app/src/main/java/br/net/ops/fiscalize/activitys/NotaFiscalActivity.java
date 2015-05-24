@@ -31,10 +31,22 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     private ViewGroup viewGroupProgress;
     private ViewGroup viewGroupRecarregar;
 
+    private ViewGroup viewGroupSuspeita;
+    private ViewGroup viewGroupSuspeitaValor;
+    private ViewGroup viewGroupSuspeitaObjeto;
+    private ViewGroup viewGroupSuspeitaBeneficiario;
+
     private Button buttonSuspeita;
     private Button buttonLimpa;
     private Button buttonNaoSei;
     private Button buttonRecarregar;
+
+    private Button buttonValorSim;
+    private Button buttonValorNao;
+    private Button buttonObjetoSim;
+    private Button buttonObjetoNao;
+    private Button buttonBeneficiarioSim;
+    private Button buttonBeneficiarioNao;
 
     private Preferences preferences;
 
@@ -42,6 +54,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     private Suspeita suspeita;
 
     private int numeroTentativas = 0;
+    private boolean perguntandoSuspeita = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +65,11 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
             this.viewGroupNotaFiscal = (ViewGroup) findViewById(R.id.view_group);
             this.viewGroupProgress = (ViewGroup) findViewById(R.id.view_group_progress);
             this.viewGroupRecarregar = (ViewGroup) findViewById(R.id.view_group_recarregar);
+
+            this.viewGroupSuspeita = (ViewGroup) findViewById(R.id.view_group_suspeita);
+            this.viewGroupSuspeitaValor = (ViewGroup) findViewById(R.id.view_group_suspeita_valor);
+            this.viewGroupSuspeitaObjeto = (ViewGroup) findViewById(R.id.view_group_suspeita_objeto);
+            this.viewGroupSuspeitaBeneficiario = (ViewGroup) findViewById(R.id.view_group_suspeita_beneficiario);
 
             this.buttonSuspeita = (Button) findViewById(R.id.button_suspeita);
             this.buttonLimpa = (Button) findViewById(R.id.button_limpa);
@@ -64,6 +82,13 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
                     carregarNotaFiscal();
                 }
             });
+
+            this.buttonValorSim = (Button) findViewById(R.id.button_suspeita_valor_sim);
+            this.buttonValorNao = (Button) findViewById(R.id.button_suspeita_valor_nao);
+            this.buttonObjetoSim = (Button) findViewById(R.id.button_suspeita_objeto_sim);
+            this.buttonObjetoNao = (Button) findViewById(R.id.button_suspeita_objeto_nao);
+            this.buttonBeneficiarioSim = (Button) findViewById(R.id.button_suspeita_beneficiario_sim);
+            this.buttonBeneficiarioNao = (Button) findViewById(R.id.button_suspeita_beneficiario_nao);
 
             this.preferences = new Preferences(this);
             this.usuario = preferences.resgatarUsuario();
@@ -112,6 +137,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     @Override
     public void onSuspeitaAdicionada(String mensagem) {
         carregarNotaFiscal();
+        exibirSuspeita();
     }
 
     @Override
@@ -119,20 +145,35 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         Log.e(TAG, erro);
         Toast.makeText(this, getString(R.string.erro_adicionar_suspeita), Toast.LENGTH_LONG).show();
         exibirModoNotaFiscal();
+        exibirSuspeita();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(perguntandoSuspeita) {
+            exibirSuspeita();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void adicionarSuspeitaNotaSuspeita() {
-        adicionarSuspeita(false);
+        suspeita.setSuspeita(true);
+        adicionarSuspeita();
     }
 
     private void adicionarSuspeitaNotaLimpa() {
-        adicionarSuspeita(true);
+        suspeita.setSuspeita(false);
+        suspeita.setSuspeitaValor(false);
+        suspeita.setSuspeitaObjeto(false);
+        suspeita.setSuspeitaBeneficiario(false);
+        suspeita.setComentarios("");
+        adicionarSuspeita();
     }
 
-    private void adicionarSuspeita(boolean isSuspeita) {
+    private void adicionarSuspeita() {
         exibirModoCarregando();
 
-        suspeita.setSuspeita(isSuspeita);
         RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
         SuspeitaVolley suspeitaVolley = new SuspeitaVolley(suspeita, this, this);
         queue.add(suspeitaVolley.getRequest());
@@ -159,7 +200,8 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         buttonSuspeita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adicionarSuspeitaNotaSuspeita();
+                perguntandoSuspeita = true;
+                exibirSuspeitaValor();
             }
         });
         buttonLimpa.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +217,53 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
             }
         });
 
+        buttonValorSim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                suspeita.setSuspeitaValor(true);
+                exibirSuspeitaObjeto();
+            }
+        });
+        buttonValorNao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                suspeita.setSuspeitaValor(false);
+                exibirSuspeitaObjeto();
+            }
+        });
+
+        buttonObjetoSim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                suspeita.setSuspeitaObjeto(true);
+                exibirSuspeitaFornecedor();
+            }
+        });
+        buttonObjetoNao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                suspeita.setSuspeitaObjeto(false);
+                exibirSuspeitaFornecedor();
+            }
+        });
+
+        buttonBeneficiarioSim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                perguntandoSuspeita = false;
+                suspeita.setSuspeitaBeneficiario(true);
+                adicionarSuspeitaNotaSuspeita();
+            }
+        });
+        buttonBeneficiarioNao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                perguntandoSuspeita = false;
+                suspeita.setSuspeitaBeneficiario(false);
+                adicionarSuspeitaNotaSuspeita();
+            }
+        });
+
         viewGroupNotaFiscal.setVisibility(View.VISIBLE);
         viewGroupProgress.setVisibility(View.GONE);
         viewGroupRecarregar.setVisibility(View.GONE);
@@ -184,6 +273,28 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         viewGroupNotaFiscal.setVisibility(View.GONE);
         viewGroupProgress.setVisibility(View.GONE);
         viewGroupRecarregar.setVisibility(View.VISIBLE);
+    }
+
+    private void exibirSuspeitaValor() {
+        viewGroupSuspeita.setVisibility(View.GONE);
+        viewGroupSuspeitaValor.setVisibility(View.VISIBLE);
+    }
+
+    private void exibirSuspeitaObjeto() {
+        viewGroupSuspeitaValor.setVisibility(View.GONE);
+        viewGroupSuspeitaObjeto.setVisibility(View.VISIBLE);
+    }
+
+    private void exibirSuspeitaFornecedor() {
+        viewGroupSuspeitaObjeto.setVisibility(View.GONE);
+        viewGroupSuspeitaBeneficiario.setVisibility(View.VISIBLE);
+    }
+
+    private void exibirSuspeita() {
+        viewGroupSuspeitaValor.setVisibility(View.GONE);
+        viewGroupSuspeitaObjeto.setVisibility(View.GONE);
+        viewGroupSuspeitaBeneficiario.setVisibility(View.GONE);
+        viewGroupSuspeita.setVisibility(View.VISIBLE);
     }
 
 }

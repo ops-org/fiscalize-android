@@ -24,40 +24,177 @@
         android:padding="@dimen/padding_small">
 
         <LinearLayout
+            android:id="@+id/view_group_suspeita"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/button_suspeita"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/vermelho"
+                    android:text="@string/label_suspeita"
+                    android:layout_weight="1"
+                    style="@style/Button"/>
+
+                <Button
+                    android:id="@+id/button_limpa"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/azul"
+                    android:text="@string/label_limpa"
+                    android:layout_weight="1"
+                    style="@style/Button"/>
+
+            </LinearLayout>
 
             <Button
-                android:id="@+id/button_suspeita"
-                android:layout_width="0dp"
+                android:id="@+id/button_nao_sei"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/vermelho"
-                android:text="@string/label_suspeita"
-                android:layout_weight="1"
-                style="@style/Button"/>
-
-            <Button
-                android:id="@+id/button_limpa"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@color/azul"
-                android:text="@string/label_limpa"
+                android:background="@color/cinza_claro"
+                android:textColor="@color/cinza_escuro"
+                android:text="@string/label_nao_sei"
                 android:layout_weight="1"
                 style="@style/Button"/>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button_nao_sei"
+        <LinearLayout
+            android:id="@+id/view_group_suspeita_valor"
+            android:orientation="vertical"
+            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/cinza_claro"
-            android:textColor="@color/cinza_escuro"
-            android:text="@string/label_nao_sei"
-            android:layout_weight="1"
-            style="@style/Button"/>
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/label_suspeita_valor"
+                android:layout_marginBottom="@dimen/margin_medium"
+                style="@style/TextPergunta" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/button_suspeita_valor_sim"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/vermelho"
+                    android:text="@string/label_sim"
+                    android:layout_weight="1"
+                    style="@style/Button"/>
+
+                <Button
+                    android:id="@+id/button_suspeita_valor_nao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/azul"
+                    android:text="@string/label_nao"
+                    android:layout_weight="1"
+                    style="@style/Button"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_group_suspeita_objeto"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/label_suspeita_objeto"
+                android:layout_marginBottom="@dimen/margin_medium"
+                style="@style/TextPergunta" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/button_suspeita_objeto_sim"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/vermelho"
+                    android:text="@string/label_sim"
+                    android:layout_weight="1"
+                    style="@style/Button"/>
+
+                <Button
+                    android:id="@+id/button_suspeita_objeto_nao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/azul"
+                    android:text="@string/label_nao"
+                    android:layout_weight="1"
+                    style="@style/Button"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_group_suspeita_beneficiario"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/label_suspeita_beneficiario"
+                android:layout_marginBottom="@dimen/margin_medium"
+                style="@style/TextPergunta" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/button_suspeita_beneficiario_sim"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/vermelho"
+                    android:text="@string/label_sim"
+                    android:layout_weight="1"
+                    style="@style/Button"/>
+
+                <Button
+                    android:id="@+id/button_suspeita_beneficiario_nao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/azul"
+                    android:text="@string/label_nao"
+                    android:layout_weight="1"
+                    style="@style/Button"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

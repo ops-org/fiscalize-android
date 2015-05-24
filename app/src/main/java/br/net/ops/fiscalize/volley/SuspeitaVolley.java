@@ -1,7 +1,6 @@
 package br.net.ops.fiscalize.volley;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -16,11 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.net.ops.fiscalize.R;
-import br.net.ops.fiscalize.interfaces.LoginListener;
 import br.net.ops.fiscalize.utils.UtilVolley;
 import br.net.ops.fiscalize.utils.Utilidade;
 import br.net.ops.fiscalize.vo.Suspeita;
-import br.net.ops.fiscalize.vo.Usuario;
 
 public class SuspeitaVolley {
 
@@ -35,7 +32,7 @@ public class SuspeitaVolley {
     private static final String PARAM_SUSPEITA = "suspeita";
     private static final String PARAM_SUSPEITA_VALOR = "suspeitaValor";
     private static final String PARAM_SUSPEITA_OBJETO = "suspeitaObjeto";
-    private static final String PARAM_SUSPEITA_FORNECEDOR = "suspeitaFornecedor";
+    private static final String PARAM_SUSPEITA_BENEFICIARIO = "suspeitaBeneficiario";
     private static final String PARAM_COMENTARIOS = "comentarios";
 
     private Context context;
@@ -63,14 +60,39 @@ public class SuspeitaVolley {
                     notaFiscalId = String.valueOf(suspeita.getNotaFiscal().getNotaFiscalId());
                 }
 
+                boolean isSuspeita = false;
+                if(suspeita.getSuspeita()!=null) {
+                    isSuspeita = suspeita.getSuspeita();
+                }
+
+                boolean notaSuspeitaValor = false;
+                if(suspeita.getSuspeitaValor()!=null) {
+                    notaSuspeitaValor = suspeita.getSuspeitaValor();
+                }
+
+                boolean notaSuspeitaObjeto = false;
+                if(suspeita.getSuspeitaObjeto()!=null) {
+                    notaSuspeitaObjeto = suspeita.getSuspeitaObjeto();
+                }
+
+                boolean notaSuspeitaFornecedor = false;
+                if(suspeita.getSuspeitaBeneficiario()!=null) {
+                    notaSuspeitaFornecedor = suspeita.getSuspeitaBeneficiario();
+                }
+
+                String comentarios = "";
+                if(suspeita.getComentarios()!=null) {
+                    comentarios = suspeita.getComentarios();
+                }
+
                 Map<String, String> params = new HashMap<>();
                 params.put(PARAM_USUARIO_ID, String.valueOf(usuarioId));
                 params.put(PARAM_NOTA_FISCAL_ID, String.valueOf(notaFiscalId));
-                params.put(PARAM_SUSPEITA, String.valueOf(suspeita.getSuspeita()));
-                params.put(PARAM_SUSPEITA_VALOR, String.valueOf(suspeita.getSuspeitaValor()));
-                params.put(PARAM_SUSPEITA_OBJETO, String.valueOf(suspeita.getSuspeitaObjeto()));
-                params.put(PARAM_SUSPEITA_FORNECEDOR, String.valueOf(suspeita.getSuspeitaFornecedor()));
-                params.put(PARAM_COMENTARIOS, suspeita.getComentarios());
+                params.put(PARAM_SUSPEITA, String.valueOf(isSuspeita));
+                params.put(PARAM_SUSPEITA_VALOR, String.valueOf(notaSuspeitaValor));
+                params.put(PARAM_SUSPEITA_OBJETO, String.valueOf(notaSuspeitaObjeto));
+                params.put(PARAM_SUSPEITA_BENEFICIARIO, String.valueOf(notaSuspeitaFornecedor));
+                params.put(PARAM_COMENTARIOS, comentarios);
 
                 return params;
             }

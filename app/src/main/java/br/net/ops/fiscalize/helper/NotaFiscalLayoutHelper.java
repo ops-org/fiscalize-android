@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -57,7 +59,7 @@ public class NotaFiscalLayoutHelper {
         viewHolder.descricao.setText(notaFiscal.getDescricao());
         viewHolder.dataEmissao.setText(formatarDataEmissao(notaFiscal.getDataEmissao()));
         viewHolder.fornecedor.setText(notaFiscal.getBeneficiario());
-        viewHolder.cpfCnpj.setText(notaFiscal.getCpfCnpj());
+        viewHolder.cpfCnpj.setText(formatarCpfCnpj(notaFiscal.getCpfCnpj()));
         viewHolder.numeroDocumento.setText(notaFiscal.getNumeroDocumento());
         viewHolder.reembolso.setText(formatarReembolso(notaFiscal.getMes(), notaFiscal.getAno()));
         viewHolder.valor.setText(formatarValor(notaFiscal.getValor()));
@@ -169,6 +171,20 @@ public class NotaFiscalLayoutHelper {
             }
         }
 
+        return retorno;
+    }
+
+    private String formatarCpfCnpj(String cpfCnpj) {
+        String retorno = "";
+        if(!StringUtils.isEmpty(cpfCnpj)) {
+            if(cpfCnpj.length()==11) { // CPF
+                retorno = cpfCnpj.substring(0, 3) + "." + cpfCnpj.substring(3, 6) + "." + cpfCnpj.substring(6, 9) + "-" + cpfCnpj.substring(9, 11);
+            } else if(cpfCnpj.length()==14) { // CNPJ
+                retorno = cpfCnpj.substring(0, 2) + "." + cpfCnpj.substring(2, 5) + "." + cpfCnpj.substring(5, 8) + "/" + cpfCnpj.substring(8, 12) + "-" + cpfCnpj.substring(12, 14);
+            } else {
+                retorno = cpfCnpj;
+            }
+        }
         return retorno;
     }
 
