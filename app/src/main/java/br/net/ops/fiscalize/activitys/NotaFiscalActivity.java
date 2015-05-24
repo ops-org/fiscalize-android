@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import br.net.ops.fiscalize.R;
@@ -45,35 +44,15 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         setContentView(R.layout.activity_detalhes_nota_fiscal);
 
         try {
-            this.preferences = new Preferences(this);
-            usuario = preferences.resgatarUsuario();
-
             this.viewGroup = (ViewGroup) findViewById(R.id.view_group);
             this.viewGroupProgress = (ViewGroup) findViewById(R.id.view_group_progress);
 
             this.buttonSuspeita = (Button) findViewById(R.id.button_suspeita);
-            buttonSuspeita.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    adicionarNotaSuspeita();
-                }
-            });
-
             this.buttonLimpa = (Button) findViewById(R.id.button_limpa);
-            buttonLimpa.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    adicionarNotaLimpa();
-                }
-            });
-
             this.buttonNaoSei = (Button) findViewById(R.id.button_nao_sei);
-            buttonNaoSei.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    carregarNotaFiscal();
-                }
-            });
+
+            this.preferences = new Preferences(this);
+            this.usuario = preferences.resgatarUsuario();
 
             carregarNotaFiscal();
 
@@ -84,7 +63,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     }
 
     private void carregarNotaFiscal() {
-        exibirProgress();
+        exibirModoCarregando();
 
         RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
         NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, this);
@@ -96,6 +75,28 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         // Log.d(TAG, notaFiscal.getParlamentar().getUrlImagem() + "|" + notaFiscal.getParlamentar().getPartido().getUrlImagem());
         NotaFiscalLayoutHelper.getInstance().exibirNotaFiscal(this, viewGroup, notaFiscal);
 
+        buttonSuspeita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adicionarNotaSuspeita();
+            }
+        });
+
+        buttonLimpa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adicionarNotaLimpa();
+            }
+        });
+
+        buttonNaoSei.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                carregarNotaFiscal();
+            }
+        });
+
+        suspeita = new Suspeita();
         suspeita.setUsuario(usuario);
         suspeita.setNotaFiscal(notaFiscal);
 
@@ -128,14 +129,19 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     }
 
     private void adicionarNota(boolean isSuspeita) {
-        exibirProgress();
+        exibirModoCarregando();
 
         suspeita.setSuspeita(isSuspeita);
         RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
         SuspeitaVolley suspeitaVolley = new SuspeitaVolley(suspeita, this, this);
+        queue.add(suspeitaVolley.getRequest());
     }
 
-    private void exibirProgress() {
+    private void exibirModoCarregando() {
+        this.buttonSuspeita.setOnClickListener(clickAguarde);
+        this.buttonLimpa.setOnClickListener(clickAguarde);
+        this.buttonNaoSei.setOnClickListener(clickAguarde);
+
         viewGroupProgress.setVisibility(View.VISIBLE);
         viewGroup.setVisibility(View.GONE);
     }
@@ -144,5 +150,12 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         viewGroupProgress.setVisibility(View.GONE);
         viewGroup.setVisibility(View.VISIBLE);
     }
+
+    private View.OnClickListener clickAguarde = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(NotaFiscalActivity.this, getString(R.string.mensagem_aguarde), Toast.LENGTH_SHORT).show();
+        }
+    };
 
 }

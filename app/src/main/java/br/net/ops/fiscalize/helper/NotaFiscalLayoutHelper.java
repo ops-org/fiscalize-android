@@ -39,9 +39,9 @@ public class NotaFiscalLayoutHelper {
 
         final ViewHolderNotaFiscal viewHolder = new ViewHolderNotaFiscal(viewGroup);
 
-        // Previne exibir imagem da �ltima nota fiscal antes de carregar imagem atual da web
-        limparImagem(activity, viewHolder.fotoParlamentar);
-        limparImagem(activity, viewHolder.fotoPartido);
+        // Previne exibir imagem da ultima nota fiscal antes de carregar imagem atual da web
+        viewHolder.fotoParlamentar.setVisibility(View.INVISIBLE);
+        viewHolder.fotoPartido.setVisibility(View.INVISIBLE);
 
         // Ainda sem dados no BD para esses dois campos
         viewHolder.emailParlamentar.setVisibility(View.GONE);
@@ -58,8 +58,7 @@ public class NotaFiscalLayoutHelper {
         viewHolder.fornecedor.setText(notaFiscal.getFornecedor());
         viewHolder.cpfCnpj.setText(notaFiscal.getCpfCnpj());
         viewHolder.numeroDocumento.setText(notaFiscal.getNumeroDocumento());
-        viewHolder.ano.setText(formatarNumero(notaFiscal.getAno()));
-        viewHolder.mes.setText(Mes.getDescricaoCurta(notaFiscal.getMes()));
+        viewHolder.reembolso.setText(formatarReembolso(notaFiscal.getMes(), notaFiscal.getAno()));
         viewHolder.valor.setText(formatarValor(notaFiscal.getValor()));
 
         if(notaFiscal.getValorGlosa()==null || notaFiscal.getValorGlosa().intValue()==0) {
@@ -81,12 +80,13 @@ public class NotaFiscalLayoutHelper {
             public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
                 if (response != null && response.getBitmap() != null) {
                     viewHolder.fotoParlamentar.setImageBitmap(response.getBitmap());
+                    viewHolder.fotoParlamentar.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                limparImagem(activity, viewHolder.fotoParlamentar);
+                limparImagemParlamentar(viewHolder);
             }
         });
 
@@ -95,19 +95,25 @@ public class NotaFiscalLayoutHelper {
             public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
                 if (response != null && response.getBitmap() != null) {
                     viewHolder.fotoPartido.setImageBitmap(response.getBitmap());
+                    viewHolder.fotoPartido.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                limparImagem(activity, viewHolder.fotoPartido);
+                limparImagemPartido(viewHolder);
             }
         });
 
     }
 
-    private void limparImagem(Activity activity, ImageView imageView) {
-        imageView.setImageResource(activity.getResources().getColor(R.color.cinza_claro)); // TODO: carregar imagem padr�o
+    private void limparImagemParlamentar(ViewHolderNotaFiscal viewHolder) {
+        viewHolder.fotoParlamentar.setVisibility(View.VISIBLE);
+        viewHolder.fotoParlamentar.setImageResource(R.mipmap.cover_parlamentar);
+    }
+
+    private void limparImagemPartido(ViewHolderNotaFiscal viewHolder) {
+        viewHolder.fotoPartido.setVisibility(View.INVISIBLE);
     }
 
     private String formatarDataEmissao(Date data) {
@@ -134,11 +140,24 @@ public class NotaFiscalLayoutHelper {
         return retorno;
     }
 
-    private String formatarNumero(Integer numero) {
+    private String formatarReembolso(Integer mes, Integer ano) {
+
         String retorno = "";
-        if(numero!=null) {
-            retorno = String.valueOf(numero);
+        String strAno = ano==null?"":String.valueOf(ano);
+        String strMes = Mes.getDescricaoCurta(mes);
+
+        if(!strMes.equals("")) {
+            retorno = strMes;
         }
+
+        if(!strAno.equals("")) {
+            if(!retorno.equals("")) {
+                retorno += "/" + strAno;
+            } else {
+                retorno = strAno;
+            }
+        }
+
         return retorno;
     }
 
@@ -158,8 +177,7 @@ public class NotaFiscalLayoutHelper {
         public TextView fornecedor;
         public TextView cpfCnpj;
         public TextView numeroDocumento;
-        public TextView ano;
-        public TextView mes;
+        public TextView reembolso;
         public TextView valor;
         public TextView valorGlosa;
         public TextView valorLiquido;
@@ -182,8 +200,7 @@ public class NotaFiscalLayoutHelper {
             fornecedor = (TextView) viewGroup.findViewById(R.id.text_fornecedor);
             cpfCnpj = (TextView) viewGroup.findViewById(R.id.text_cpf_cnpj);
             numeroDocumento = (TextView) viewGroup.findViewById(R.id.text_numero_documento);
-            ano = (TextView) viewGroup.findViewById(R.id.text_ano);
-            mes = (TextView) viewGroup.findViewById(R.id.text_mes);
+            reembolso = (TextView) viewGroup.findViewById(R.id.text_reembolso);
             valor = (TextView) viewGroup.findViewById(R.id.text_valor);
             valorGlosa = (TextView) viewGroup.findViewById(R.id.text_valor_glosa);
             valorLiquido = (TextView) viewGroup.findViewById(R.id.text_valor_liquido);

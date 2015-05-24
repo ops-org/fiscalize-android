@@ -7,7 +7,7 @@
 
     <style name="TextLabel" parent="AppTheme">
         <item name="android:textColor">@color/preto</item>
-        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textSize">@dimen/text_smallest</item>
     </style>
 
     <style name="Text" parent="AppTheme">

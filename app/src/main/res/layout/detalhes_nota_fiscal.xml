@@ -107,50 +107,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/margin_medium">
+            android:layout_marginTop="@dimen/margin_big">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_cota"
-                    style="@style/TextLabel" />
-
-                <TextView
-                    android:id="@+id/text_cota"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    style="@style/Text" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="right"
-                android:layout_marginLeft="@dimen/margin_small">
+                android:text="@string/label_cota"
+                style="@style/TextLabel" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_uf"
-                    style="@style/TextLabel" />
-
-                <TextView
-                    android:id="@+id/text_uf"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    style="@style/Text"/>
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/text_cota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_small"
+                style="@style/Text" />
 
         </LinearLayout>
 
@@ -168,27 +138,6 @@
 
             <TextView
                 android:id="@+id/text_descricao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_small"
-                style="@style/Text" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/margin_small">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_data_emissao"
-                style="@style/TextLabel" />
-
-            <TextView
-                android:id="@+id/text_data_emissao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_small"
@@ -232,11 +181,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_cpf_cnpj"
+                    android:text="@string/label_data_emissao"
                     style="@style/TextLabel" />
 
                 <TextView
-                    android:id="@+id/text_cpf_cnpj"
+                    android:id="@+id/text_data_emissao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_small"
@@ -254,11 +203,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_ano"
+                    android:text="@string/label_reembolso"
                     style="@style/TextLabel" />
 
                 <TextView
-                    android:id="@+id/text_ano"
+                    android:id="@+id/text_reembolso"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_small"
@@ -283,11 +232,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_numero_documento"
+                    android:text="@string/label_cpf_cnpj"
                     style="@style/TextLabel" />
 
                 <TextView
-                    android:id="@+id/text_numero_documento"
+                    android:id="@+id/text_cpf_cnpj"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_small"
@@ -305,11 +254,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_mes"
+                    android:text="@string/label_uf"
                     style="@style/TextLabel" />
 
                 <TextView
-                    android:id="@+id/text_mes"
+                    android:id="@+id/text_uf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_small"
@@ -323,7 +272,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/margin_big">
+            android:layout_marginTop="@dimen/margin_small">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_numero_documento"
+                style="@style/TextLabel" />
+
+            <TextView
+                android:id="@+id/text_numero_documento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_small"
+                style="@style/Text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_medium">
 
             <TextView
                 android:layout_width="wrap_content"
