@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Fiscalize</string>
+    <string name="app_name">OPS Fiscalize</string>
 
     <!-- Nota Fiscal   -->
     <string name="exception_detalhes_nota_fiscal">Nenhuma nota fiscal disponível! Tente mais tarde!</string>

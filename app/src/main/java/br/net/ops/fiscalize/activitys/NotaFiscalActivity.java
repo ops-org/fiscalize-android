@@ -197,13 +197,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     }
 
     private void exibirModoNotaFiscal() {
-        buttonSuspeita.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                perguntandoSuspeita = true;
-                exibirSuspeitaValor();
-            }
-        });
+
         buttonLimpa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,6 +208,13 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
             @Override
             public void onClick(View v) {
                 carregarNotaFiscal();
+            }
+        });
+        buttonSuspeita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                perguntandoSuspeita = true;
+                exibirSuspeitaValor();
             }
         });
 

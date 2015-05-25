@@ -27,7 +27,8 @@
                 android:background="@color/cinza_claro"
                 android:textColor="@color/cinza_escuro"
                 android:text="@string/label_recarregar"
-                android:padding="@dimen/padding_small"
+                android:paddingLeft="@dimen/padding_big"
+                android:paddingRight="@dimen/padding_big"
                 style="@style/Button"/>
 
         </LinearLayout>
