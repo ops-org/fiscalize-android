@@ -50,16 +50,4 @@ public class Utilidade {
         }
     }
 
-    public static String converterDateString(Date data) {
-        try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            return simpleDateFormat.format(data);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d(TAG, "Data inválida: " + data);
-            return null;
-        }
-    }
-
 }
