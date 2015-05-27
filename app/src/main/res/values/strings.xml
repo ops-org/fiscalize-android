@@ -36,7 +36,6 @@
     <string name="mensagem_aguarde">Aguarde!</string>
 
     <!-- ERROS -->
-    <string name="erro_carregar_nota_fiscal">Impossível carregar! Tente mais tarde!</string>
     <string name="erro_adicionar_suspeita">Impossível adicionar! Tente novamente!</string>
 
     <!-- Login -->

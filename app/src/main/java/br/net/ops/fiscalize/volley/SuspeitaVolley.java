@@ -23,10 +23,10 @@ public class SuspeitaVolley {
 
 	private static final String TAG = "SuspeitaVolley";
 
+    private static final String URL = Utilidade.REST_SERVIDOR + "suspeita/adicionar";
 	private static final int METHOD = Request.Method.POST;
     private static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
 
-	private static final String URL = Utilidade.REST_SERVIDOR + "suspeita/adicionar";
 	private static final String PARAM_USUARIO_ID = "usuarioId";
 	private static final String PARAM_NOTA_FISCAL_ID = "notaFiscalId";
     private static final String PARAM_SUSPEITA = "suspeita";
@@ -36,7 +36,6 @@ public class SuspeitaVolley {
     private static final String PARAM_COMENTARIOS = "comentarios";
 
     private Context context;
-
     private StringRequest request;
     private SuspeitaListener suspeitaListener;
 
@@ -45,7 +44,7 @@ public class SuspeitaVolley {
         void onSuspeitaErro(String erro);
     }
 
-    public SuspeitaVolley(final Suspeita suspeita, final SuspeitaListener suspeitaListener, final Context context) {
+    public SuspeitaVolley(final Context context, final Suspeita suspeita, final SuspeitaListener suspeitaListener) {
 
         this.request = new StringRequest(METHOD, URL, listenerSucesso, listenerErro) {
             @Override

@@ -105,8 +105,8 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         exibirModoCarregando();
 
         RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
-        NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, this);
-        queue.add(mensagemVolley);
+        NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, usuario, this);
+        queue.add(mensagemVolley.getRequest());
     }
 
     @Override
@@ -129,7 +129,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         if(numeroTentativas<=MAX_TENTATIVAS) {
             carregarNotaFiscal();
         } else {
-            Toast.makeText(this, getString(R.string.erro_carregar_nota_fiscal), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, erro, Toast.LENGTH_LONG).show();
             exibirModoRecarregar();
         }
     }
@@ -175,7 +175,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         exibirModoCarregando();
 
         RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
-        SuspeitaVolley suspeitaVolley = new SuspeitaVolley(suspeita, this, this);
+        SuspeitaVolley suspeitaVolley = new SuspeitaVolley(this, suspeita, this);
         queue.add(suspeitaVolley.getRequest());
     }
 
