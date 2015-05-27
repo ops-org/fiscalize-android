@@ -126,7 +126,7 @@ public class NotaFiscalVolley {
                     String erro = json.getString(Utilidade.REST_JSON_ERRO);
                     listener.onDetalhesNotaFiscalErro(erro);
                 } catch(JSONException ex) {
-                    // Resposta inválida
+                    // Resposta invalida
                     Log.i(TAG, "erro " + e.getLocalizedMessage());
                     listener.onDetalhesNotaFiscalErro(context.getString(R.string.exception_detalhes_nota_fiscal));
                 }

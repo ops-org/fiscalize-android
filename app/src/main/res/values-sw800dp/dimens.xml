@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- Font -->
+    <dimen name="text_biggest">46sp</dimen>
+    <dimen name="text_big">42sp</dimen>
+    <dimen name="text_medium">38sp</dimen>
+    <dimen name="text_small">24sp</dimen>
+    <dimen name="text_smallest">22sp</dimen>
+    
+</resources>

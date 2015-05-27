@@ -1,0 +1,30 @@
+<resources>
+
+    <dimen name="activity_horizontal_margin">32dp</dimen>
+    <dimen name="activity_vertical_margin">32dp</dimen>
+
+    <!-- Margin -->
+    <dimen name="margin_biggest">128dp</dimen>
+    <dimen name="margin_bigger">64dp</dimen>
+    <dimen name="margin_big">48dp</dimen>
+    <dimen name="margin_medium">32dp</dimen>
+    <dimen name="margin_small">16dp</dimen>
+    <dimen name="margin_smallest">8dp</dimen>
+    <dimen name="margin_border">2dp</dimen>
+
+    <!-- Padding -->
+    <dimen name="padding_biggest">128dp</dimen>
+    <dimen name="padding_bigger">64dp</dimen>
+    <dimen name="padding_big">48dp</dimen>
+    <dimen name="padding_medium">32dp</dimen>
+    <dimen name="padding_small">16dp</dimen>
+    <dimen name="padding_smallest">8dp</dimen>
+
+    <!-- Font -->
+    <dimen name="text_biggest">30sp</dimen>
+    <dimen name="text_big">26sp</dimen>
+    <dimen name="text_medium">22sp</dimen>
+    <dimen name="text_small">18sp</dimen>
+    <dimen name="text_smallest">16sp</dimen>
+
+</resources>
