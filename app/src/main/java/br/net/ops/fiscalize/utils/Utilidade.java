@@ -33,7 +33,7 @@ public class Utilidade {
     public static final String REST_JSON_ERRO = "erro";
 
     // IMAGENS
-    public static final String IMG_PARLAMENTAR_URL = URL_SERVIDOR + "/fiscalize/parlamentar/";
+    public static final String IMG_PARLAMENTAR_URL = URL_SERVIDOR + "http://104.131.229.175/fiscalize/parlamentar/";
     public static final String IMG_PARLAMENTAR_EXT = ".jpg";
 
     public static final String IMG_PARTIDO_URL = URL_SERVIDOR + "/fiscalize/partido/";
