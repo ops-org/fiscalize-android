@@ -42,6 +42,8 @@ public class AutorizarVolley {
 
     public AutorizarVolley(final Usuario usuario, final LoginListener loginListener, final Context context) {
 
+        this.context = context;
+        this.loginListener = loginListener;
         this.request = new StringRequest(METHOD, URL, listenerSucesso, listenerErro) {
             @Override
             protected Map<String,String> getParams(){
@@ -64,9 +66,6 @@ public class AutorizarVolley {
                 return params;
             }
         };
-
-        this.context = context;
-        this.loginListener = loginListener;
 
     }
 

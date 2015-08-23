@@ -27,7 +27,7 @@ public class SuspeitaVolley {
 	private static final int METHOD = Request.Method.POST;
     private static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
 
-	private static final String PARAM_USUARIO_ID = "usuarioId";
+	private static final String PARAM_TOKEN_ID = "tokenId";
 	private static final String PARAM_NOTA_FISCAL_ID = "notaFiscalId";
     private static final String PARAM_SUSPEITA = "suspeita";
     private static final String PARAM_SUSPEITA_VALOR = "suspeitaValor";
@@ -46,12 +46,14 @@ public class SuspeitaVolley {
 
     public SuspeitaVolley(final Context context, final Suspeita suspeita, final SuspeitaListener suspeitaListener) {
 
+        this.context = context;
+        this.suspeitaListener = suspeitaListener;
         this.request = new StringRequest(METHOD, URL, listenerSucesso, listenerErro) {
             @Override
             protected Map<String,String> getParams(){
-                String usuarioId = "";
-                if(suspeita.getUsuario()!=null && suspeita.getUsuario().getUsuarioId()!=null) {
-                    usuarioId = String.valueOf(suspeita.getUsuario().getUsuarioId());
+                String tokenId = "";
+                if(suspeita.getUsuario()!=null && suspeita.getUsuario().getTokenId()!=null) {
+                    tokenId = String.valueOf(suspeita.getUsuario().getTokenId());
                 }
 
                 String notaFiscalId = "";
@@ -85,7 +87,7 @@ public class SuspeitaVolley {
                 }
 
                 Map<String, String> params = new HashMap<>();
-                params.put(PARAM_USUARIO_ID, String.valueOf(usuarioId));
+                params.put(PARAM_TOKEN_ID, String.valueOf(tokenId));
                 params.put(PARAM_NOTA_FISCAL_ID, String.valueOf(notaFiscalId));
                 params.put(PARAM_SUSPEITA, String.valueOf(isSuspeita));
                 params.put(PARAM_SUSPEITA_VALOR, String.valueOf(notaSuspeitaValor));
@@ -103,9 +105,6 @@ public class SuspeitaVolley {
                 return params;
             }
         };
-
-        this.context = context;
-        this.suspeitaListener = suspeitaListener;
 
     }
 

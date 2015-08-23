@@ -1,10 +1,9 @@
 package br.net.ops.fiscalize.volley;
 
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -25,18 +24,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NotaFiscalVolley {
 
     private static final String TAG = "NotaFiscalVolley";
 
-    public static final String URL = Utilidade.REST_SERVIDOR + "notafiscal/recuperar";
-    private static final int METHOD = Request.Method.GET;
+    private static final int METHOD = Request.Method.POST;
+    private static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
 
-    public static final String PARAM_USUARIO_ID = "usuarioId";
+    public static final String URL = Utilidade.REST_SERVIDOR + "notafiscal/recuperar";
+    public static final String PARAM_TOKEN_ID = "tokenId";
 
     private Context context;
-    private JsonObjectRequest request;
+    private StringRequest request;
     private DetalhesNotaFiscalListener listener;
 
     public interface DetalhesNotaFiscalListener {
@@ -46,18 +48,33 @@ public class NotaFiscalVolley {
 
     public NotaFiscalVolley(final Context context, final Usuario usuario, final DetalhesNotaFiscalListener listener){
 
-        String url = URL + "?" + PARAM_USUARIO_ID + "=" + usuario.getUsuarioId();
-
         this.context = context;
         this.listener = listener;
-        this.request = new JsonObjectRequest(METHOD, url, null, listenerSucesso, listenerErro);
+        this.request = new StringRequest(METHOD, URL, listenerSucesso, listenerErro) {
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<>();
+                params.put(PARAM_TOKEN_ID, String.valueOf(usuario.getTokenId()));
+
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("Content-Type", CONTENT_TYPE);
+                return params;
+            }
+        };
+
     }
 
-    private Response.Listener<JSONObject> listenerSucesso = new Response.Listener<JSONObject>() {
+    private Response.Listener<String> listenerSucesso = new Response.Listener<String>() {
 
         @Override
-        public void onResponse(JSONObject json) {
+        public void onResponse(String response) {
             try {
+                JSONObject json = new JSONObject(response);
                 JSONObject jsonParlamentar = json.getJSONObject("parlamentar");
 
                 Parlamentar parlamentar = new Parlamentar();
@@ -123,6 +140,7 @@ public class NotaFiscalVolley {
             } catch (JSONException e){
                 try {
                     // Procura Erro no retorno
+                    JSONObject json = new JSONObject(response);
                     String erro = json.getString(Utilidade.REST_JSON_ERRO);
                     listener.onDetalhesNotaFiscalErro(erro);
                 } catch(JSONException ex) {
@@ -142,7 +160,7 @@ public class NotaFiscalVolley {
         }
     };
 
-    public JsonObjectRequest getRequest() {
+    public StringRequest getRequest() {
         return request;
     }
 
