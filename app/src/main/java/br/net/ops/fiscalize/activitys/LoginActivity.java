@@ -16,6 +16,8 @@ import br.net.ops.fiscalize.utils.Preferences;
 import br.net.ops.fiscalize.vo.Usuario;
 import br.net.ops.fiscalize.volley.AutorizarVolley;
 import br.net.ops.fiscalize.volley.VolleySingleton;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 
 public class LoginActivity extends Activity implements LoginListener {
@@ -27,6 +29,7 @@ public class LoginActivity extends Activity implements LoginListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_login);
 
         Usuario usuario;

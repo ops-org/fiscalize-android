@@ -22,6 +22,9 @@
             android:name=".activitys.NotaFiscalActivity"
             android:screenOrientation="portrait">
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="7321ec8b7adb1594b2d8a46ed94ca7108ec6adeb" />
     </application>
 
 </manifest>
