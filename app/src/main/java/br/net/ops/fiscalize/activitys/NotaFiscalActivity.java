@@ -167,12 +167,13 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         suspeita.setSuspeitaValor(false);
         suspeita.setSuspeitaObjeto(false);
         suspeita.setSuspeitaBeneficiario(false);
-        suspeita.setComentarios("");
         adicionarSuspeita();
     }
 
     private void adicionarSuspeita() {
         exibirModoCarregando();
+
+        suspeita.setComentarios("android"); // todo: Alterar no futuro para uma flag
 
         RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
         SuspeitaVolley suspeitaVolley = new SuspeitaVolley(this, suspeita, this);
