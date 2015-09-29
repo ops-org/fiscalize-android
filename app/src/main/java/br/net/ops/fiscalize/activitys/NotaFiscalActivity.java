@@ -72,7 +72,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
             this.viewGroupSuspeitaBeneficiario = (ViewGroup) findViewById(R.id.view_group_suspeita_beneficiario);
 
             this.buttonSuspeita = (Button) findViewById(R.id.button_suspeita);
-            this.buttonLimpa = (Button) findViewById(R.id.button_limpa);
+            this.buttonLimpa = (Button) findViewById(R.id.button_confiavel);
             this.buttonNaoSei = (Button) findViewById(R.id.button_nao_sei);
             this.buttonRecarregar = (Button) findViewById(R.id.button_recarregar);
             this.buttonRecarregar.setOnClickListener(new View.OnClickListener() {

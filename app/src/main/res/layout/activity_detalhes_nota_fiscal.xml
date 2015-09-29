@@ -36,12 +36,12 @@
                 android:weightSum="2">
 
                 <Button
-                    android:id="@+id/button_limpa"
+                    android:id="@+id/button_confiavel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@color/verde"
                     android:textColor="@color/branco"
-                    android:text="@string/label_limpa"
+                    android:text="@string/label_confiavel"
                     android:layout_weight="1"
                     style="@style/Button"/>
 
