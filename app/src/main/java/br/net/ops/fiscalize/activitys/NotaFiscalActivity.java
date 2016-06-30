@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import br.net.ops.fiscalize.R;
@@ -48,6 +50,12 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     private Button buttonBeneficiarioSim;
     private Button buttonBeneficiarioNao;
 
+    private TextView nomeParlamentar;
+    private ImageView fotoParlamentar;
+    private TextView nomePartido;
+    private ImageView fotoPartido;
+
+
     private Preferences preferences;
 
     private Usuario usuario;
@@ -55,6 +63,10 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
 
     private int numeroTentativas = 0;
     private boolean perguntandoSuspeita = false;
+
+    //filtragem de parlamentar/partido
+    private int parlamentarSelecionado = 0;
+    private int partidoSelecionado = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +102,11 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
             this.buttonBeneficiarioSim = (Button) findViewById(R.id.button_suspeita_beneficiario_sim);
             this.buttonBeneficiarioNao = (Button) findViewById(R.id.button_suspeita_beneficiario_nao);
 
+            this.nomeParlamentar = (TextView) findViewById(R.id.text_nome_parlamentar);
+            this.fotoParlamentar = (ImageView) findViewById(R.id.image_foto_parlamentar);
+            this.nomePartido = (TextView) findViewById(R.id.text_nome_partido);
+            this.fotoPartido = (ImageView) findViewById(R.id.image_foto_partido);
+
             this.preferences = new Preferences(this);
             this.usuario = preferences.resgatarUsuario();
 
@@ -105,7 +122,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         exibirModoCarregando();
 
         RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
-        NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, usuario, this);
+        NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, usuario, this, parlamentarSelecionado, partidoSelecionado);
         queue.add(mensagemVolley.getRequest());
     }
 
@@ -266,9 +283,39 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
             }
         });
 
+        View.OnClickListener filtrarParlamentarListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                parlamentarSelecionado  = getIdParlamentarNotaFiscalAtual();
+                partidoSelecionado = 0;
+            }
+        };
+
+        nomeParlamentar.setOnClickListener(filtrarParlamentarListener);
+        fotoParlamentar.setOnClickListener(filtrarParlamentarListener);
+
+        View.OnClickListener filtrarPartidoListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                partidoSelecionado  = getIdPartidoNotaFiscalAtual();
+                parlamentarSelecionado = 0;
+            }
+        };
+
+        nomePartido.setOnClickListener(filtrarPartidoListener);
+        fotoPartido.setOnClickListener(filtrarPartidoListener);
+
         viewGroupNotaFiscal.setVisibility(View.VISIBLE);
         viewGroupProgress.setVisibility(View.GONE);
         viewGroupRecarregar.setVisibility(View.GONE);
+    }
+
+    private int getIdParlamentarNotaFiscalAtual(){
+        return  suspeita.getNotaFiscal().getParlamentar().getParlamentarId();
+    }
+
+    private int getIdPartidoNotaFiscalAtual(){
+        return  suspeita.getNotaFiscal().getParlamentar().getPartido().getPartidoId();
     }
 
     private void exibirModoRecarregar() {
