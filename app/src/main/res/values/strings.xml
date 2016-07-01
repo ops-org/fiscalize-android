@@ -20,7 +20,7 @@
     <!-- BOTOES -->
     <string name="label_suspeita">Suspeita</string>
     <string name="label_confiavel">Confiável</string>
-    <string name="label_nao_sei">Não sei! Quero analisar outra nota.</string>
+    <string name="label_nao_sei">Não sei</string>
     <string name="label_recarregar">Recarregar</string>
     <string name="label_sim">Sim</string>
     <string name="label_nao">Não</string>

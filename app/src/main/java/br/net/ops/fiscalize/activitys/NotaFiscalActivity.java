@@ -4,6 +4,9 @@ import com.android.volley.RequestQueue;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +27,7 @@ import br.net.ops.fiscalize.volley.NotaFiscalVolley.DetalhesNotaFiscalListener;
 import br.net.ops.fiscalize.volley.SuspeitaVolley;
 import br.net.ops.fiscalize.volley.VolleySingleton;
 
-public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalListener, SuspeitaVolley.SuspeitaListener {
+public class NotaFiscalActivity extends AppCompatActivity implements DetalhesNotaFiscalListener, SuspeitaVolley.SuspeitaListener {
 
     private static final String TAG = "NotaFiscalActivity";
     private static final int MAX_TENTATIVAS = 3;
@@ -72,6 +75,9 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_nota_fiscal);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.ops_toolbar);
+        setSupportActionBar(myToolbar);
 
         try {
             this.viewGroupNotaFiscal = (ViewGroup) findViewById(R.id.view_group);
