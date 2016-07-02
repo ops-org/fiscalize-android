@@ -20,6 +20,8 @@ import br.net.ops.fiscalize.exception.UsuarioException;
 import br.net.ops.fiscalize.helper.NotaFiscalLayoutHelper;
 import br.net.ops.fiscalize.utils.Preferences;
 import br.net.ops.fiscalize.vo.NotaFiscal;
+import br.net.ops.fiscalize.vo.Parlamentar;
+import br.net.ops.fiscalize.vo.Partido;
 import br.net.ops.fiscalize.vo.Suspeita;
 import br.net.ops.fiscalize.vo.Usuario;
 import br.net.ops.fiscalize.volley.NotaFiscalVolley;
@@ -68,8 +70,8 @@ public class NotaFiscalActivity extends AppCompatActivity implements DetalhesNot
     private boolean perguntandoSuspeita = false;
 
     //filtragem de parlamentar/partido
-    private int parlamentarSelecionado = 0;
-    private int partidoSelecionado = 0;
+    private Parlamentar parlamentarSelecionado;
+    private Partido partidoSelecionado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +130,11 @@ public class NotaFiscalActivity extends AppCompatActivity implements DetalhesNot
         exibirModoCarregando();
 
         RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
-        NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, usuario, this, parlamentarSelecionado, partidoSelecionado);
+
+        int idParlamentar = parlamentarSelecionado != null? parlamentarSelecionado.getParlamentarId() : 0;
+        int idPartido = partidoSelecionado != null? partidoSelecionado.getPartidoId() : 0;
+
+        NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, usuario, this, idParlamentar, idPartido);
         queue.add(mensagemVolley.getRequest());
     }
 
@@ -292,8 +298,7 @@ public class NotaFiscalActivity extends AppCompatActivity implements DetalhesNot
         View.OnClickListener filtrarParlamentarListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parlamentarSelecionado  = getIdParlamentarNotaFiscalAtual();
-                partidoSelecionado = 0;
+                filtrarPorParlamentar(getParlamentarNotaFiscalAtual());
             }
         };
 
@@ -303,8 +308,7 @@ public class NotaFiscalActivity extends AppCompatActivity implements DetalhesNot
         View.OnClickListener filtrarPartidoListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                partidoSelecionado  = getIdPartidoNotaFiscalAtual();
-                parlamentarSelecionado = 0;
+                filtrarPorPartido(getPartidoNotaFiscalAtual());
             }
         };
 
@@ -316,12 +320,38 @@ public class NotaFiscalActivity extends AppCompatActivity implements DetalhesNot
         viewGroupRecarregar.setVisibility(View.GONE);
     }
 
-    private int getIdParlamentarNotaFiscalAtual(){
-        return  suspeita.getNotaFiscal().getParlamentar().getParlamentarId();
+    private void filtrarPorParlamentar(Parlamentar parlamentar) {
+        if(parlamentar == null || parlamentar.equals(parlamentarSelecionado)){
+            //Limpa filtro por parlamentar
+            parlamentarSelecionado = null;
+            Toast.makeText(getApplicationContext(), R.string.exibndo_notas_de_todos_parlamentares , Toast.LENGTH_SHORT).show();
+        } else {
+            //Filtra notas por parlamentar
+            parlamentarSelecionado = parlamentar;
+            partidoSelecionado = null;
+            Toast.makeText(getApplicationContext(), getString(R.string.exibndo_somente_notas_de) + " " + parlamentar.getNome(), Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private int getIdPartidoNotaFiscalAtual(){
-        return  suspeita.getNotaFiscal().getParlamentar().getPartido().getPartidoId();
+    private void filtrarPorPartido(Partido partido) {
+        if(partido == null || partido.equals(partidoSelecionado)){
+            //Limpa filtro por partido
+            partidoSelecionado = null;
+            Toast.makeText(getApplicationContext(), R.string.exibndo_notas_de_todos_partidos, Toast.LENGTH_SHORT).show();
+        } else {
+            //Filtra notas por partido
+            partidoSelecionado = partido;
+            parlamentarSelecionado  = null;
+            Toast.makeText(getApplicationContext(), getString(R.string.exibindo_somente_notas_parlamentares_do) + " " + partido.getSigla(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private Parlamentar getParlamentarNotaFiscalAtual(){
+        return  suspeita.getNotaFiscal().getParlamentar();
+    }
+
+    private Partido getPartidoNotaFiscalAtual(){
+        return  suspeita.getNotaFiscal().getParlamentar().getPartido();
     }
 
     private void exibirModoRecarregar() {
