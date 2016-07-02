@@ -36,6 +36,8 @@ public class NotaFiscalVolley {
 
     public static final String URL = Utilidade.REST_SERVIDOR + "notafiscal/recuperar";
     public static final String PARAM_TOKEN_ID = "tokenId";
+    public static final String PARAM_PARLAMENTAR_ID = "parlamentarId";
+    public static final String PARAM_PARTIDO_ID = "partidoId";
 
     private Context context;
     private StringRequest request;
@@ -47,6 +49,11 @@ public class NotaFiscalVolley {
     }
 
     public NotaFiscalVolley(final Context context, final Usuario usuario, final DetalhesNotaFiscalListener listener){
+        this(context,usuario,listener,0,0);
+    }
+
+
+    public NotaFiscalVolley(final Context context, final Usuario usuario, final DetalhesNotaFiscalListener listener, final int parlamentarSelecionado, final int partidoSelecionado){
 
         this.context = context;
         this.listener = listener;
@@ -55,6 +62,8 @@ public class NotaFiscalVolley {
             protected Map<String, String> getParams(){
                 Map<String, String> params = new HashMap<>();
                 params.put(PARAM_TOKEN_ID, String.valueOf(usuario.getTokenId()));
+                params.put(PARAM_PARLAMENTAR_ID, String.valueOf(parlamentarSelecionado));
+                params.put(PARAM_PARTIDO_ID, String.valueOf(partidoSelecionado));
 
                 return params;
             }
@@ -66,7 +75,6 @@ public class NotaFiscalVolley {
                 return params;
             }
         };
-
     }
 
     private Response.Listener<String> listenerSucesso = new Response.Listener<String>() {

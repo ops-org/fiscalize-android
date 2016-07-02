@@ -4,10 +4,15 @@ import com.android.volley.RequestQueue;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import br.net.ops.fiscalize.R;
@@ -15,6 +20,8 @@ import br.net.ops.fiscalize.exception.UsuarioException;
 import br.net.ops.fiscalize.helper.NotaFiscalLayoutHelper;
 import br.net.ops.fiscalize.utils.Preferences;
 import br.net.ops.fiscalize.vo.NotaFiscal;
+import br.net.ops.fiscalize.vo.Parlamentar;
+import br.net.ops.fiscalize.vo.Partido;
 import br.net.ops.fiscalize.vo.Suspeita;
 import br.net.ops.fiscalize.vo.Usuario;
 import br.net.ops.fiscalize.volley.NotaFiscalVolley;
@@ -22,7 +29,7 @@ import br.net.ops.fiscalize.volley.NotaFiscalVolley.DetalhesNotaFiscalListener;
 import br.net.ops.fiscalize.volley.SuspeitaVolley;
 import br.net.ops.fiscalize.volley.VolleySingleton;
 
-public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalListener, SuspeitaVolley.SuspeitaListener {
+public class NotaFiscalActivity extends AppCompatActivity implements DetalhesNotaFiscalListener, SuspeitaVolley.SuspeitaListener {
 
     private static final String TAG = "NotaFiscalActivity";
     private static final int MAX_TENTATIVAS = 3;
@@ -48,6 +55,12 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     private Button buttonBeneficiarioSim;
     private Button buttonBeneficiarioNao;
 
+    private TextView nomeParlamentar;
+    private ImageView fotoParlamentar;
+    private TextView nomePartido;
+    private ImageView fotoPartido;
+
+
     private Preferences preferences;
 
     private Usuario usuario;
@@ -56,10 +69,17 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     private int numeroTentativas = 0;
     private boolean perguntandoSuspeita = false;
 
+    //filtragem de parlamentar/partido
+    private Parlamentar parlamentarSelecionado;
+    private Partido partidoSelecionado;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_nota_fiscal);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.ops_toolbar);
+        setSupportActionBar(myToolbar);
 
         try {
             this.viewGroupNotaFiscal = (ViewGroup) findViewById(R.id.view_group);
@@ -90,6 +110,11 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
             this.buttonBeneficiarioSim = (Button) findViewById(R.id.button_suspeita_beneficiario_sim);
             this.buttonBeneficiarioNao = (Button) findViewById(R.id.button_suspeita_beneficiario_nao);
 
+            this.nomeParlamentar = (TextView) findViewById(R.id.text_nome_parlamentar);
+            this.fotoParlamentar = (ImageView) findViewById(R.id.image_foto_parlamentar);
+            this.nomePartido = (TextView) findViewById(R.id.text_nome_partido);
+            this.fotoPartido = (ImageView) findViewById(R.id.image_foto_partido);
+
             this.preferences = new Preferences(this);
             this.usuario = preferences.resgatarUsuario();
 
@@ -105,7 +130,11 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         exibirModoCarregando();
 
         RequestQueue queue = VolleySingleton.getInstance(this).getRequestQueue();
-        NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, usuario, this);
+
+        int idParlamentar = parlamentarSelecionado != null? parlamentarSelecionado.getParlamentarId() : 0;
+        int idPartido = partidoSelecionado != null? partidoSelecionado.getPartidoId() : 0;
+
+        NotaFiscalVolley mensagemVolley = new NotaFiscalVolley(this, usuario, this, idParlamentar, idPartido);
         queue.add(mensagemVolley.getRequest());
     }
 
@@ -266,9 +295,63 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
             }
         });
 
+        View.OnClickListener filtrarParlamentarListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filtrarPorParlamentar(getParlamentarNotaFiscalAtual());
+            }
+        };
+
+        nomeParlamentar.setOnClickListener(filtrarParlamentarListener);
+        fotoParlamentar.setOnClickListener(filtrarParlamentarListener);
+
+        View.OnClickListener filtrarPartidoListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filtrarPorPartido(getPartidoNotaFiscalAtual());
+            }
+        };
+
+        nomePartido.setOnClickListener(filtrarPartidoListener);
+        fotoPartido.setOnClickListener(filtrarPartidoListener);
+
         viewGroupNotaFiscal.setVisibility(View.VISIBLE);
         viewGroupProgress.setVisibility(View.GONE);
         viewGroupRecarregar.setVisibility(View.GONE);
+    }
+
+    private void filtrarPorParlamentar(Parlamentar parlamentar) {
+        if(parlamentar == null || parlamentar.equals(parlamentarSelecionado)){
+            //Limpa filtro por parlamentar
+            parlamentarSelecionado = null;
+            Toast.makeText(getApplicationContext(), R.string.exibndo_notas_de_todos_parlamentares , Toast.LENGTH_SHORT).show();
+        } else {
+            //Filtra notas por parlamentar
+            parlamentarSelecionado = parlamentar;
+            partidoSelecionado = null;
+            Toast.makeText(getApplicationContext(), getString(R.string.exibndo_somente_notas_de) + " " + parlamentar.getNome(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void filtrarPorPartido(Partido partido) {
+        if(partido == null || partido.equals(partidoSelecionado)){
+            //Limpa filtro por partido
+            partidoSelecionado = null;
+            Toast.makeText(getApplicationContext(), R.string.exibndo_notas_de_todos_partidos, Toast.LENGTH_SHORT).show();
+        } else {
+            //Filtra notas por partido
+            partidoSelecionado = partido;
+            parlamentarSelecionado  = null;
+            Toast.makeText(getApplicationContext(), getString(R.string.exibindo_somente_notas_parlamentares_do) + " " + partido.getSigla(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private Parlamentar getParlamentarNotaFiscalAtual(){
+        return  suspeita.getNotaFiscal().getParlamentar();
+    }
+
+    private Partido getPartidoNotaFiscalAtual(){
+        return  suspeita.getNotaFiscal().getParlamentar().getPartido();
     }
 
     private void exibirModoRecarregar() {

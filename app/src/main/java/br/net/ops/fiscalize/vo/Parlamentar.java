@@ -1,6 +1,9 @@
 package br.net.ops.fiscalize.vo;
 
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.util.Date;
 
 import br.net.ops.fiscalize.utils.Utilidade;
@@ -78,5 +81,37 @@ public class Parlamentar {
 
     public void setPartido(Partido partido) {
         this.partido = partido;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Parlamentar that = (Parlamentar) o;
+
+        return new EqualsBuilder()
+                .append(parlamentarId, that.parlamentarId)
+                .append(nome, that.nome)
+                .append(nomeCivil, that.nomeCivil)
+                .append(email, that.email)
+                .append(profissao, that.profissao)
+                .append(ideCadastro, that.ideCadastro)
+                .append(partido, that.partido)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(parlamentarId)
+                .append(nome)
+                .append(nomeCivil)
+                .append(email)
+                .append(profissao)
+                .append(ideCadastro)
+                .append(partido)
+                .toHashCode();
     }
 }

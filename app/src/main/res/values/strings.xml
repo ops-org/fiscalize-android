@@ -20,7 +20,7 @@
     <!-- BOTOES -->
     <string name="label_suspeita">Suspeita</string>
     <string name="label_confiavel">Confiável</string>
-    <string name="label_nao_sei">Não sei! Quero analisar outra nota.</string>
+    <string name="label_nao_sei">Não sei</string>
     <string name="label_recarregar">Recarregar</string>
     <string name="label_sim">Sim</string>
     <string name="label_nao">Não</string>
@@ -50,5 +50,11 @@
     <!-- Exceptions Geral -->
     <string name="exception_rest">Erro ao contatar servidor!</string>
     <string name="exception_comunicacao">Falha na comunicação!</string>
+
+    <!-- TOASTS -->
+    <string name="exibndo_somente_notas_de">Exibindo somente notas de</string>
+    <string name="exibindo_somente_notas_parlamentares_do">Exibindo somente notas de parlamentares do</string>
+    <string name="exibndo_notas_de_todos_parlamentares">Exibindo notas de todos os parlamentares</string>
+    <string name="exibndo_notas_de_todos_partidos">Exibindo notas de todos os partidos</string>
 
 </resources>

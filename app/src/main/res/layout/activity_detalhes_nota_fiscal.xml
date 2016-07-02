@@ -1,7 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/ops_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -21,7 +31,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/ghostwhite"
-        android:padding="@dimen/padding_small">
+        android:padding="@dimen/padding_smallest">
 
         <LinearLayout
             android:id="@+id/view_group_suspeita"
@@ -33,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="3">
 
                 <Button
                     android:id="@+id/button_confiavel"
@@ -46,26 +56,26 @@
                     style="@style/Button"/>
 
                 <Button
+                    android:id="@+id/button_nao_sei"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/cinza_claro"
+                    android:textColor="@color/cinza_escuro"
+                    android:text="@string/label_nao_sei"
+                    android:layout_weight="1"
+                    style="@style/Button"/>
+
+                <Button
                     android:id="@+id/button_suspeita"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/amarelo"
-                    android:textColor="@color/preto"
+                    android:background="@color/vermelho"
+                    android:textColor="@color/branco"
                     android:text="@string/label_suspeita"
                     android:layout_weight="1"
                     style="@style/Button"/>
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/button_nao_sei"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/cinza_claro"
-                android:textColor="@color/cinza_escuro"
-                android:text="@string/label_nao_sei"
-                android:layout_weight="1"
-                style="@style/Button"/>
 
         </LinearLayout>
 
